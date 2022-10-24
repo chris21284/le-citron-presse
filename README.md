@@ -22,3 +22,12 @@ pnpm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+3 bases de données
+
+1. article (titre, description)
+2. image (image en blob, et ref à l'id de l'article)
+3. ingredient (nom)
+4. table d'association (ingredient <=> article) 
+
+
