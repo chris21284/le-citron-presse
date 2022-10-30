@@ -12,22 +12,23 @@
 
 </template>
 
-<script lang="ts">
+<script>
 import { defineComponent } from 'vue';
-import { IArticle } from '@/models/article.interface';
-import { app, credentials } from "@/utils/mongo.client";
+import { app, credentials } from "../utils/mongo.client";
 
 export default defineComponent({
   name: 'CpArticles',
   components: {
   },
 
-  data: () => ({ articles: [] as IArticle[] }), //ERREUR ICI
+  data()  {
+    return { articles: [] }
+  },
 
   methods: {
     async getListOfArticles() {
-      const user: Realm.User = await app.logIn(credentials);
-      const listOfArticle: Promise<IArticle[]> = user.functions.getAllArticles();
+      const user = await app.logIn(credentials);
+      const listOfArticle = user.functions.getAllArticles();
       listOfArticle.then((resp) => {
         this.articles = resp;
       });
@@ -35,7 +36,7 @@ export default defineComponent({
   },
 
   mounted() {
-    this.getAllArticles();
+    this.getListOfArticles();
   },
 });
 </script>
