@@ -9,6 +9,7 @@
 <style>
 body {
   margin: 0px;
+  overflow-y: hidden;
 }
 
 #app {
@@ -41,7 +42,7 @@ footer {
 }
 
 .content {
-  min-height: calc(100vh - 200px); /* 100px for header and 100px for footer */
+  min-height: calc(100vh - 220px); /* 120px for header and 100px for footer */
 }
 </style>
 <script>
