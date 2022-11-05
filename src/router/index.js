@@ -7,8 +7,8 @@ import NotFound from "@/NotFound";
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
+    path: '/infos',
+    name: 'info',
     component: CpHome
   },
   {
@@ -19,7 +19,7 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component:CpCart// () => import(/* webpackChunkName: "about" */ '../views/CpCart.vue')
   },
-  { path: '/articles', component: CpArticles },
+  { path: '/', component: CpArticles },
   { path: '/articles/:id', component: CpArticle },
   { path: "/not-found", component: NotFound }
 ]

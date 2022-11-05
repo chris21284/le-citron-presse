@@ -63,10 +63,19 @@ export default {
 <style>
   .list-article {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     padding: 10px;
     text-decoration: none;
   }
+
+  .list-article router-link {
+    background-color: blueviolet;
+  }
+
+  .list-article a:-webkit-any-link {
+    text-decoration: none;
+  }
+
 
 </style>

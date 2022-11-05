@@ -4,19 +4,19 @@
     <img src="./assets/title.png" class="center-image">
     <nav>
       <span class="link">
-        <router-link to="/" >
-          <span class="material-symbols-outlined">
-            cottage
-          </span>
-          Accueil
-        </router-link>
-      </span>
-      <span class="link">
-        <router-link to="/articles">
+        <router-link to="/">
           <span class="material-symbols-outlined">
             list
           </span>
           Articles
+        </router-link>
+      </span>
+      <span class="link">
+        <router-link to="/infos" >
+          <span class="material-symbols-outlined">
+            cottage
+          </span>
+          Infos
         </router-link>
       </span>
       <span class="link">
