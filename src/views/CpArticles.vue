@@ -1,12 +1,10 @@
 <template>
   <div class="list-article">
-    <router-link :to="{path: `articles/${article._id}`}"
-                 v-for="article in articles"
-                 :key="article._id">
-      <cp-preview
-       :id="'article' + article._id"
-      :article="article"/>
-    </router-link>
+    <cp-preview v-for="article in articles"
+      :id="'article' + article._id"
+      :key="article._id"
+      :article="article"
+      @add-cart="onAddCart"/>
   </div>
 </template>
 
@@ -40,6 +38,10 @@ export default {
         this.articles = resp;
       });
     },
+    onAddCart(id) {
+      this.$emit("add-cart", id);
+      console.log("articles add to cart");
+    }
   },
   mounted() {
     this.getListOfArticles();
@@ -65,8 +67,11 @@ export default {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    padding: 10px;
+    /* padding: 10px; */
     text-decoration: none;
+    margin: 10px auto;
+    height: 100%;
+    max-width: 1000px;
   }
 
   .list-article router-link {
@@ -77,5 +82,11 @@ export default {
     text-decoration: none;
   }
 
-
+  @media only screen and (max-width: 800px) {
+    .list-article {
+      grid-template-columns: repeat(1, 1fr);
+      max-width: unset;
+      width: 100%;
+    }
+  } 
 </style>

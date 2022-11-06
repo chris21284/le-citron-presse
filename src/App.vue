@@ -1,7 +1,7 @@
 <template>
-  <CpHeader/>
-  <div class="content">
-    <router-view/>
+  <CpHeader :number-of-elements="numberElementInCart"/>
+  <div class="main-content">
+    <router-view @add-cart="onAddToCart"/>
   </div>
   <CpFooter/>
 </template>
@@ -9,6 +9,7 @@
 <style>
 body {
   margin: 0px;
+  overflow: hidden;
 }
 
 #app {
@@ -17,6 +18,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  display: grid;
 }
 
 nav {
@@ -37,17 +39,54 @@ header {
   top: 0px;
 }
 footer {
-  height: 100px;
+  height: 50px;
 }
 
-.content {
-  min-height: calc(100vh - 220px); /* 120px for header and 100px for footer */
+.main-content {
+  min-height: calc(100vh - 150px); /* 100px for header and 50px for footer */
+  height: calc(100vh - 150px); 
+  overflow-y: auto;
 }
 </style>
 <script>
 import CpHeader from "@/CpHeader";
 import CpFooter from "@/CpFooter";
 export default {
-  components: {CpHeader, CpFooter}
+  components: {CpHeader, CpFooter},
+  data() {
+    return {numberElementInCart: 0};
+  },
+  mounted() {
+    this.checkLocalStorage();
+  },
+  methods: {
+    checkLocalStorage() {
+        let cart = localStorage.getItem('myCart');
+        if(cart == null) {
+          this.numberElementInCart = 0;
+        }
+        else {
+          cart = JSON.parse(cart);
+          this.numberElementInCart = Object.keys(cart).length;
+        }
+    },
+
+    onAddToCart(id) {
+      const nbElem = document.getElementById('nb-elem' + id);
+      let cart = localStorage.getItem('myCart');
+      if(cart == null) {
+        cart = {};
+      }
+      else {
+        cart = JSON.parse(cart);
+      }
+      
+      cart[id] = parseInt(nbElem.value);
+      
+      console.log("add to cart ", JSON.stringify(cart));
+      localStorage.setItem('myCart', JSON.stringify(cart));
+      this.checkLocalStorage();
+    }
+  }
 }
 </script>

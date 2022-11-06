@@ -1,20 +1,25 @@
 <template>
   <div class="preview">
-    <img :src='first' />
+    <img :src='first' @click="redirect"/>
     <div class="content">
-      <div class="title">{{article.title}}</div>
-      <div class="description">
+      <div class="title" @click="redirect">{{article.title}}</div>
+      <div class="description" @click="redirect">
         {{article.description}}
       </div>
       <div class="footer">
-        <button class="more-info">Plus d'infos</button>
-        <button class="add">Add</button>
+        <button class="more-info" @click="redirect">Plus d'infos</button>
+        <input :id="'nb-elem'+article._id" class="nb-elements" type="number" value="1" max="100" min="1"/>
+        <button class="material-symbols-outlined cart" @click="addToCart">
+          add_shopping_cart
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import CpArticle from './CpArticle.vue';
+
   export default {
     name: 'CpPreview',
     props: {
@@ -34,6 +39,18 @@
           return srcDir('./default.png');
         }
       }
+    },
+    methods: {
+      redirect() {
+        this.$router.push({ params: {id: this.article._id}, component: CpArticle});
+
+        //<router-link :to="{path: `articles/${article._id}`}"
+      },
+
+      addToCart() {
+        this.$emit("add-cart", this.article._id);
+        console.log("preview add to cart");
+      }
     }
   }
 </script>
@@ -44,6 +61,7 @@
     padding: 10px;
     display: flex;
     height: 170px;
+    /*width: 100%;*/
   }
 
   .preview .title {
@@ -57,6 +75,7 @@
     gap: 10px;
     flex-direction: column;
     min-height: unset;
+    width: 100%;
   }
 
   .preview .content .description {
@@ -73,6 +92,9 @@
   .preview .footer {
     margin-top: auto;
     text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
   }
 
   .preview button.more-info {
@@ -84,4 +106,17 @@
     font-weight: bold;
     margin-right: 5px;
   } 
+
+  .preview .footer input.nb-elements {
+    width: 30px;
+  }
+
+  .preview .footer button.cart {
+    background-color:#13df0b;
+    border: 0px;
+    border-radius: 3px;
+    color: white;
+    font-size: 20px;
+    padding: 5px;
+  }
 </style>

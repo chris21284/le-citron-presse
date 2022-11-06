@@ -25,6 +25,7 @@
             shopping_cart
           </span>
           Caddy
+          <div class="number" v-if="showNumber">{{numberOfElements}}</div>
         </router-link>
       </span>
     </nav>
@@ -34,10 +35,21 @@
 <script>
 export default {
   name: 'CpHeader',
+  props: {
+    numberOfElements: {
+      type: Number,
+      default: 0
+    }
+  },
   components: {
 
+  },
+  computed: {
+    showNumber() {
+      return this.numberOfElements != 0;
+    }
   }
-}
+  }
 </script>
 
 <style>
@@ -61,12 +73,14 @@ export default {
 
   header nav {
     display: flex;
+    padding: 0px 30px;
   }
 
   header nav a {
     display: flex;
     flex-direction: column;
     text-decoration: none;
+    position: relative;
   }
   header nav .link .material-symbols-outlined {
     font-size: 36px;
@@ -83,4 +97,17 @@ export default {
   header .link nav span {
     font-size: 36px;
   }
+
+  header nav a .number {
+    display: block;
+    position: absolute;
+    top: 3px;
+    right: -3px;
+    font-size: 12px;
+    background-color: #18cff9;
+    color: white;
+    border: 1px solid grey;
+    border-radius: 50%;
+    padding: 2px 7px;
+}
 </style>
