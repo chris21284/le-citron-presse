@@ -1,7 +1,9 @@
 <template>
   <div class="preview">
     <!--<img src="../assets/images/cookie.png"/>-->
-    <img :src="first"/>
+    <!-- <img :src='first'/> -->
+    <img :src='first' />
+    <!--<img :src="require('../assets/images/default.png')"/>-->
     <div class="content">
       <div class="title">{{article.title}}</div>
       <div class="description">
@@ -28,12 +30,11 @@
     },
     computed: {
       first() {
-        let srcDirImage = '../assets/images/';
-        if(this.article != null && this.article.photos != null && this.article.photos.length > 0) {
-          return srcDirImage + this.article.photos[0];
-        }
-        else {
-          return srcDirImage + 'default.png';
+        var srcDir = require.context('../assets/images/', false, /\.png$/)
+        if(this.article != null && this.article.photos != null && this.article.photos.length > 0)
+          return srcDir('./' + this.article.photos[0]);
+        else{
+          return srcDir('./default.png');
         }
       }
     }
