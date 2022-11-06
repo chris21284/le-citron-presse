@@ -9,7 +9,6 @@
 <style>
 body {
   margin: 0px;
-  overflow-y: hidden;
 }
 
 #app {
