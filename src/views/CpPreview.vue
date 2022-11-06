@@ -1,9 +1,6 @@
 <template>
   <div class="preview">
-    <!--<img src="../assets/images/cookie.png"/>-->
-    <!-- <img :src='first'/> -->
     <img :src='first' />
-    <!--<img :src="require('../assets/images/default.png')"/>-->
     <div class="content">
       <div class="title">{{article.title}}</div>
       <div class="description">
