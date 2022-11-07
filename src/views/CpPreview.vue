@@ -1,6 +1,9 @@
 <template>
   <div class="preview">
-    <img :src='first' @click="redirect"/>
+    <picture  @click="redirect" >
+      <source type="image/webp" :srcset="first">
+      <img :src="firstJpeg" loading="lazy"/>
+    </picture>
     <div class="content">
       <div class="title" @click="redirect">{{article.title}}</div>
       <div class="description" @click="redirect">
@@ -32,9 +35,17 @@ import CpArticle from './CpArticle.vue';
     },
     computed: {
       first() {
-        var srcDir = require.context('../assets/images/', false, /\.png$/)
+        var srcDir = require.context('../assets/images/webp', false, /\.webp$/)
         if(this.article != null && this.article.photos != null && this.article.photos.length > 0)
-          return srcDir('./' + this.article.photos[0]);
+          return srcDir('./' + this.article.photos[0] + '.webp');
+        else{
+          return srcDir('./default.webp');
+        }
+      },
+      firstJpeg() {
+        var srcDir = require.context('../assets/images/', false, /\.jpeg$/)
+        if(this.article != null && this.article.photos != null && this.article.photos.length > 0)
+          return srcDir('./' + this.article.photos[0] + '.jpeg');
         else{
           return srcDir('./default.png');
         }
@@ -87,6 +98,7 @@ import CpArticle from './CpArticle.vue';
     border: 1px solid grey;
     border-radius: 15px;
     margin-right: 10px;
+    height: 100%;
   }
 
   .preview .footer {
