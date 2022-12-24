@@ -82,8 +82,6 @@ export default {
       }
       
       cart[id] = parseInt(nbElem.value);
-      
-      console.log("add to cart ", JSON.stringify(cart));
       localStorage.setItem('myCart', JSON.stringify(cart));
       this.checkLocalStorage();
     }

@@ -1,6 +1,6 @@
 <template>
   <header>
-    <img src="./assets/logo-small.png">
+    <img :src="logoSmall">
     <img src="./assets/title.png" class="center-image">
     <nav>
       <span class="link">
@@ -41,15 +41,16 @@ export default {
       default: 0
     }
   },
-  components: {
-
-  },
   computed: {
     showNumber() {
       return this.numberOfElements != 0;
-    }
-  }
-  }
+    },
+    logoSmall() {
+      let srcDir = require.context('./assets/', false, /\.png$/);
+      return srcDir('./' + 'logo-small.png');
+    },
+  },
+}
 </script>
 
 <style>
