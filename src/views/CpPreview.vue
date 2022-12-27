@@ -19,6 +19,7 @@
 
 <script>
 
+
   export default {
     name: 'CpPreview',
     props: {
@@ -29,9 +30,13 @@
         type: Object
       }
     },
+    data() {
+      return {
+        images : null,
+      }
+    },
     computed: {
       first() {
-        let srcDir = require.context('../assets/images/webp', false, /\.webp$/);
         let namePhoto;
         if(this.article != null && this.article.photos != null && this.article.photos.length > 0 &&
           this.article.photos[0].length > 0) {
@@ -40,7 +45,10 @@
         else {
           namePhoto = 'no-photo';
         }
-        return srcDir('./' + namePhoto + '.webp');
+        console.log("imgg")
+        console.log("PROD MODE ? = ", process.env.NODE_ENV === 'production')
+        console.log("DEV MODE ? = ", process.env.NODE_ENV === 'development')
+        return this.images['./' + namePhoto + '.webp'];
       },
     },
     methods: {
@@ -52,7 +60,14 @@
 
       addToCart() {
         this.$emit("add-cart", this.id);
+      },
+      importAll(r) {
+        console.log("import");
+        return r.keys().reduce((json, value) => {json[value] = r(value); return json; }, {});
       }
+    },
+    created() {
+      this.images = this.importAll(require.context('../assets/images/', false, /\.webp$/));
     }
   }
 </script>
@@ -89,7 +104,9 @@
     border: 1px solid grey;
     border-radius: 15px;
     margin-right: 10px;
+    object-fit: cover;
     height: 100%;
+    width: 300px;
   }
 
   .preview .footer {

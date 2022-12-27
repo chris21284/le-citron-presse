@@ -20,7 +20,7 @@
         </router-link>
       </span>
       <span class="link">
-        <router-link to="/cart">
+        <router-link name="cart">
           <span class="material-symbols-outlined">
             shopping_cart
           </span>
@@ -57,7 +57,7 @@ export default {
   header {
     display: flex;
     align-items: center;
-    background-color: #accdc1;
+    background-color: #b2f5dd;
     padding-top: 5px;
     padding-bottom: 5px;
   }

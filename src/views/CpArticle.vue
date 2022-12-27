@@ -42,7 +42,7 @@ export default {
       });
     },
     getPhoto(name) {
-      let srcDir = require.context('../assets/images/webp', false, /\.webp$/)
+      let srcDir = require.context('../assets/images/', false, /\.webp$/)
       if (name != null && name.length > 0) {
         return srcDir('./' + name + '.webp');
       }
