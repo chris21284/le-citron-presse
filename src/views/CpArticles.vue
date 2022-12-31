@@ -26,6 +26,7 @@ export default {
     async getListOfArticles() {
       const user = await app.logIn(credentials);
       const listOfArticles = user.functions.getAllArticles();
+      console.log("list of articles");
       listOfArticles.then((resp) => {
         this.articles = resp;
       });
@@ -46,7 +47,7 @@ export default {
 <style>
   .list-article {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(410px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr;/*repeat(auto-fit, minmax(410px, 1fr));*/
     gap: 10px;
     /* padding: 10px; */
     text-decoration: none;

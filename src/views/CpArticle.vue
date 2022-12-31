@@ -29,6 +29,7 @@ export default {
       article: undefined,
       bigPhotoName: null,
       noPhotoName: 'no-photo',
+      images : null,
     }
   },
   methods: {
@@ -42,11 +43,15 @@ export default {
       });
     },
     getPhoto(name) {
-      let srcDir = require.context('../assets/images/', false, /\.webp$/)
       if (name != null && name.length > 0) {
-        return srcDir('./' + name + '.webp');
+//        return srcDir('./' + name + '.webp');
+        return this.images['./' + name + '.webp'];
       }
       return '';
+    },
+    importAll(r) {
+      const prefix = (process.env.NODE_ENV === 'production') ? '/' : '';
+      return r.keys().reduce((json, value) => {json[value] = prefix + r(value); return json; }, {});
     },
     changeBigPhoto(name) {
       this.bigPhotoName = name;
@@ -65,7 +70,7 @@ export default {
     else {
       this.getArticle(articleId);
     }
-
+    this.images = this.importAll(require.context('../assets/images/', false, /\.webp$/));
   }
 }
 </script>

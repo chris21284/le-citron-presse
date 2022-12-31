@@ -34,7 +34,7 @@ nav a.router-link-exact-active {
   color: #42b983;
 }
 header {
-  height: 100px;
+  height: 60px;
   position: sticky;
   top: 0px;
 }
@@ -43,9 +43,10 @@ footer {
 }
 
 .main-content {
-  min-height: calc(100vh - 150px); /* 100px for header and 50px for footer */
-  height: calc(100vh - 150px); 
+  min-height: calc(100vh - 110px); /* 100px for header and 50px for footer */
+  height: calc(100vh - 110px);
   overflow-y: auto;
+  background: aliceblue url("./assets/background.png");
 }
 </style>
 <script>

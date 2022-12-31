@@ -48,6 +48,7 @@ export default {
   .about article {
     padding-top: 10px;
     padding-bottom: 10px;
+    background-color: aliceblue;
   }
 
   .about article h2 {

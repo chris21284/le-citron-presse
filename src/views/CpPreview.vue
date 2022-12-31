@@ -6,13 +6,13 @@
       <div class="description" @click="redirect">
         {{article.description}}
       </div>
-      <div class="footer">
-        <button class="more-info" @click="redirect">Plus d'infos</button>
-        <input :id="'nb-elem'+article._id" class="nb-elements" type="number" value="1" max="100" min="1"/>
-        <button class="material-symbols-outlined cart" @click="addToCart">
-          add_shopping_cart
-        </button>
-      </div>
+    </div>
+    <div class="buttons-line">
+      <button class="more-info" @click="redirect">Plus d'infos</button>
+      <input :id="'nb-elem'+article._id" class="nb-elements" type="number" value="1" max="100" min="1"/>
+      <button class="material-symbols-outlined cart" @click="addToCart">
+        add_shopping_cart
+      </button>
     </div>
   </article>
 </template>
@@ -63,7 +63,8 @@
       },
       importAll(r) {
         console.log("import");
-        return r.keys().reduce((json, value) => {json[value] = r(value); return json; }, {});
+        const prefix = (process.env.NODE_ENV === 'production') ? '/' : '';
+        return r.keys().reduce((json, value) => {json[value] = prefix + r(value); return json; }, {});
       }
     },
     created() {
@@ -73,11 +74,10 @@
 </script>
 <style>
   .preview {
-    background-color: #deede8;
     border-radius: 5px;
-    padding: 10px;
     display: flex;
-    height: 170px;
+    flex-direction: column;
+    height: 400px;
     /*width: 100%;*/
   }
 
@@ -88,11 +88,14 @@
   }
 
   .preview .content {
+    background-color: #deede8;
     display: flex;
     gap: 10px;
     flex-direction: column;
-    min-height: unset;
-    width: 100%;
+    padding: 0px 10px;
+    min-height: 90px;
+    height: 90px;
+   /* width: 100%;*/
   }
 
   .preview .content .description {
@@ -101,20 +104,24 @@
   }
 
   .preview img {
-    border: 1px solid grey;
-    border-radius: 15px;
-    margin-right: 10px;
+    border: 1px solid #deede8;
+    border-radius: 15px 15px 0px 0px;
     object-fit: cover;
-    height: 100%;
-    width: 300px;
+    height: 80%;
+    width: 100%;
   }
 
-  .preview .footer {
+  .preview .buttons-line {
     margin-top: auto;
     text-align: right;
     display: flex;
     justify-content: flex-end;
     gap: 5px;
+    position: relative;
+    /* top: 10px; */
+    bottom: 128px;
+    right: 10px;
+    display: none;
   }
 
   .preview button.more-info {
@@ -127,11 +134,11 @@
     margin-right: 5px;
   } 
 
-  .preview .footer input.nb-elements {
+  .preview .buttons-line input.nb-elements {
     width: 30px;
   }
 
-  .preview .footer button.cart {
+  .preview .buttons-line button.cart {
     background-color:#4a6f48;
     border: 0px;
     border-radius: 3px;
@@ -139,4 +146,12 @@
     font-size: 20px;
     padding: 5px;
   }
+
+  .preview:hover {
+    cursor: pointer;
+  }
+  .preview:hover .buttons-line {
+    display: flex;
+  }
+
 </style>

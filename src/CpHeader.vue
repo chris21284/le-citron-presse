@@ -1,6 +1,8 @@
 <template>
   <header>
-    <img :src="logoSmall">
+    <router-link to="/">
+      <img :src="logoSmall" class="logo-small">
+    </router-link>
     <img src="./assets/title.png" class="center-image">
     <nav>
       <span class="link">
@@ -20,7 +22,7 @@
         </router-link>
       </span>
       <span class="link">
-        <router-link name="cart">
+        <router-link to="/cart">
           <span class="material-symbols-outlined">
             shopping_cart
           </span>
@@ -57,19 +59,22 @@ export default {
   header {
     display: flex;
     align-items: center;
-    background-color: #b2f5dd;
+    background-color: #accdc1;
     padding-top: 5px;
     padding-bottom: 5px;
   }
 
-  header img {
-    height: 100%;
-    padding-left: 10px;
-    padding-right: 10px;
+  header img.logo-small {
+    height: 100px;
+    margin-left: 10px;
+    margin-top: 45px;
   }
 
   header img.center-image {
-    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    height: 86px;
+    z-index: 10000;
   }
 
   header nav {
@@ -84,7 +89,7 @@ export default {
     position: relative;
   }
   header nav .link .material-symbols-outlined {
-    font-size: 36px;
+    font-size: 30px;
   }
 
   header nav .link {
@@ -92,7 +97,7 @@ export default {
   }
 
   header nav .link span {
-    margin: 10px;
+    margin-right: 10px;
   }
 
   header .link nav span {
@@ -110,5 +115,15 @@ export default {
     border: 1px solid grey;
     border-radius: 50%;
     padding: 2px 7px;
-}
+  }
+
+  @media only screen and (max-width: 600px) {
+    header img.center-image {
+      display: none;
+    }
+    header nav {
+      margin-left: auto;
+      padding: 0 15px;
+    }
+  }
 </style>
