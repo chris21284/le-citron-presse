@@ -3,25 +3,18 @@
     <router-link to="/">
       <img :src="logoSmall" class="logo-small">
     </router-link>
-    <img src="./assets/title.png" class="center-image">
     <nav>
       <span class="link">
         <router-link to="/">
-          <span class="material-symbols-outlined">
-            list
-          </span>
           Articles
         </router-link>
       </span>
       <span class="link">
         <router-link to="/infos" >
-          <span class="material-symbols-outlined">
-            cottage
-          </span>
           Infos
         </router-link>
       </span>
-      <span class="link">
+      <!--<span class="link">
         <router-link to="/cart">
           <span class="material-symbols-outlined">
             shopping_cart
@@ -29,8 +22,13 @@
           Caddy
           <div class="number" v-if="showNumber">{{numberOfElements}}</div>
         </router-link>
-      </span>
+      </span>-->
     </nav>
+    <div class="main-caddy">
+      <img src="./assets/caddy.png" >
+      <div class="number" v-if="showNumber">{{numberOfElements}}</div>
+    </div>
+      <img src="./assets/biomaison.png" class="bio-image">
   </header>
 </template>
 
@@ -59,26 +57,29 @@ export default {
   header {
     display: flex;
     align-items: center;
-    background-color: #accdc1;
+    background-color: var(--main-green);
     padding-top: 5px;
     padding-bottom: 5px;
   }
 
   header img.logo-small {
-    height: 100px;
+    /**height: 100px;
     margin-left: 10px;
-    margin-top: 45px;
+    margin-top: 45px;*/
+    height: 290px;
+    margin-left: -55px;
+    margin-top: 125px;
   }
 
-  header img.center-image {
-    margin-left: auto;
-    margin-right: auto;
-    height: 86px;
-    z-index: 10000;
+  header img.bio-image {
+    margin-right: -34px;
+    height: 180px;
+    margin-top: 65px;
   }
 
   header nav {
     display: flex;
+    margin: auto auto 0 auto;
     padding: 0px 30px;
   }
 
@@ -117,13 +118,56 @@ export default {
     padding: 2px 7px;
   }
 
-  @media only screen and (max-width: 600px) {
-    header img.center-image {
+  header .main-caddy {
+    background-color: var(--green-button);
+    border-radius: 50%;
+    display: flex;
+    position: relative;
+    height: 50px;
+    width: 50px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  header .main-caddy:hover {
+    filter: brightness(0.8);
+  }
+
+  header .main-caddy img {
+    height: 80%;
+    width: 80%;
+  }
+
+  header .main-caddy .number {
+    display: block;
+    position: absolute;
+    top: -6px;
+    right: -9px;
+    font-weight: bolder;
+    font-size: 12px;
+    background-color: var(--main-background);
+    color: white;
+    border: 1px solid var(--main-background);
+    border-radius: 50%;
+    padding: 2px 7px;
+  }
+
+  @media only screen and (max-width: 650px) {
+    header img.bio-image {
       display: none;
     }
     header nav {
       margin-left: auto;
       padding: 0 15px;
+    }
+    header img.logo-small {
+      height: 173px;
+      margin-left: -55px;
+      margin-top: 125px;
+    }
+
+    header .main-caddy {
+      margin-right: 14px;
     }
   }
 </style>

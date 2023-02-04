@@ -9,10 +9,21 @@
     </div>
     <div class="buttons-line">
       <button class="more-info" @click="redirect">Plus d'infos</button>
-      <input :id="'nb-elem'+article._id" class="nb-elements" type="number" value="1" max="100" min="1"/>
-      <button class="material-symbols-outlined cart" @click="addToCart">
-        add_shopping_cart
+      <button class="material-symbols-outlined cart" @click="decrementNumberOfElement()">
+        remove
       </button>
+      <div :id="'nb-elem'+article._id" class="nb-elements">{{nbToOrder}}</div>
+      <button class="material-symbols-outlined cart" @click="incrementNumberOfElement()">
+        add
+      </button>
+
+
+      <div class="main-caddy" @click="addToCart">
+        <img src="../assets/caddy.png" />
+        <span class="material-symbols-outlined">
+            add
+          </span>
+      </div>
     </div>
   </article>
 </template>
@@ -33,6 +44,7 @@
     data() {
       return {
         images : null,
+        nbToOrder: 1,
       }
     },
     computed: {
@@ -45,10 +57,7 @@
         else {
           namePhoto = 'no-photo';
         }
-        console.log("imgg")
-        console.log("PROD MODE ? = ", process.env.NODE_ENV === 'production')
-        console.log("DEV MODE ? = ", process.env.NODE_ENV === 'development')
-        return this.images['./' + namePhoto + '.webp'];
+       return this.images['./' + namePhoto + '.webp'];
       },
     },
     methods: {
@@ -57,14 +66,20 @@
 
         //<router-link :to="{path: `articles/${article._id}`}"
       },
-
       addToCart() {
         this.$emit("add-cart", this.id);
       },
       importAll(r) {
-        console.log("import");
         const prefix = (process.env.NODE_ENV === 'production') ? '/' : '';
         return r.keys().reduce((json, value) => {json[value] = prefix + r(value); return json; }, {});
+      },
+      decrementNumberOfElement() {
+        if(this.nbToOrder != 1) {
+          this.nbToOrder--;
+        }
+      },
+      incrementNumberOfElement() {
+        this.nbToOrder++;
       }
     },
     created() {
@@ -77,7 +92,8 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 370px;
+    min-height: 370px;
     /*width: 100%;*/
   }
 
@@ -85,63 +101,118 @@
     text-decoration: none;
     text-align: left;
     font-size: 18px;
+    font-weight: bolder;
   }
 
   .preview .content {
-    background-color: #deede8;
-    display: flex;
+    background-color: #e4e4e4bf;
     gap: 10px;
     flex-direction: column;
-    padding: 0px 10px;
-    min-height: 90px;
-    height: 90px;
-   /* width: 100%;*/
+    padding: 10px;
+    text-align: right;
+    display: flex;
+    justify-content: flex-end;
+    gap: 5px;
+    position: relative;
+    min-height: 58px;
+    bottom: 79px;
   }
 
   .preview .content .description {
     text-align: right;
     font-size: 14px;
+    height: 32px;
   }
 
   .preview img {
     border: 1px solid #deede8;
     border-radius: 15px 15px 0px 0px;
     object-fit: cover;
-    height: 80%;
     width: 100%;
+    min-height: 370px;
+    height: 370px;
   }
 
   .preview .buttons-line {
-    margin-top: auto;
+    margin-top: 16px;
     text-align: right;
     display: flex;
     justify-content: flex-end;
     gap: 5px;
     position: relative;
     /* top: 10px; */
-    bottom: 128px;
+    bottom: 60px;;
+    height: 59px;
+    min-height: 59px;
     right: 10px;
     display: none;
   }
 
+
+  .preview .buttons-line .main-caddy {
+    background-color: var(--green-button);
+    border-radius: 50%;
+    display: flex;
+    position: relative;
+    height: 45px;
+    width: 45px;
+    align-items: center;
+    justify-content: center;
+    margin-top: -12px;
+  }
+
+  .preview .buttons-line .main-caddy:hover {
+    filter: brightness(0.8);
+  }
+
+  .preview .buttons-line .main-caddy img {
+    height: 80%;
+    min-height: 80%;
+    width: 80%;
+    border: unset;
+  }
+
+  .preview .buttons-line .main-caddy .material-symbols-outlined {
+    display: block;
+    position: absolute;
+    top: -9px;
+    right: -13px;
+    font-weight: bolder;
+    font-size: 28px;
+    color: var(--green-button);
+    filter: brightness(0.5);
+    padding: 2px 7px;
+  }
+
   .preview button.more-info {
-    background-color: #4a6f48;
+    background-color: var(--green-second-button);
     border: 0px;
-    border-radius: 3px;
+    border-radius: 7px 7px 0px 0px;
     padding: 3px 6px;
     color: white;
     font-weight: bold;
     margin-right: 5px;
-  } 
+    height: 43px;
+  }
 
-  .preview .buttons-line input.nb-elements {
-    width: 30px;
+  .preview .buttons-line .nb-elements {
+    width: 40px;
+    margin-top: 3px;
+    display: flex;
+    height: 21px;
+    background-color: var(--green-second-button);
+    border: unset;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .preview .buttons-line button.cart {
-    background-color:#4a6f48;
+    background-color:var(--green-second-button);
     border: 0px;
-    border-radius: 3px;
+    border-radius: 50px;
+    height: 28px;
     color: white;
     font-size: 20px;
     padding: 5px;
@@ -152,6 +223,10 @@
   }
   .preview:hover .buttons-line {
     display: flex;
+  }
+
+  .preview:hover .content {
+    display: none;
   }
 
 </style>

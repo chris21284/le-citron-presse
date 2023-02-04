@@ -40,7 +40,8 @@ export default {
     margin-right: auto;
     margin-top: 10px;
     margin-bottom: 10px;
-    min-width: 600px;
+    width: calc(100% - 20px);
+    padding: 0 10px;
     max-width: 1000px;
     height: calc(100% - 20px);
   }
@@ -48,6 +49,7 @@ export default {
   .about article {
     padding-top: 10px;
     padding-bottom: 10px;
+    margin-bottom: 10px;
     background-color: aliceblue;
   }
 

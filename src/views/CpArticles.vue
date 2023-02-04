@@ -26,7 +26,6 @@ export default {
     async getListOfArticles() {
       const user = await app.logIn(credentials);
       const listOfArticles = user.functions.getAllArticles();
-      console.log("list of articles");
       listOfArticles.then((resp) => {
         this.articles = resp;
       });
@@ -47,6 +46,7 @@ export default {
 <style>
   .list-article {
     display: grid;
+    justify-items: stretch;
     grid-template-columns: 1fr 1fr 1fr;/*repeat(auto-fit, minmax(410px, 1fr));*/
     gap: 10px;
     /* padding: 10px; */
@@ -54,6 +54,7 @@ export default {
     margin: 10px auto;
     height: 100%;
     max-width: 1400px;
+    width: calc(100% - 10px);
     width: 100%;
   }
 
@@ -65,10 +66,17 @@ export default {
     text-decoration: none;
   }
 
+  @media only screen and (max-width: 1100px) {
+    .list-article {
+      grid-template-columns: 1fr 1fr; /*repeat(1, 760px);*/
+      max-width: calc(100% - 20px);
+    }
+  }
+
   @media only screen and (max-width: 800px) {
     .list-article {
-      grid-template-columns: repeat(1, 760px);
-      max-width: unset;
+      grid-template-columns: 1fr; /*repeat(1, 760px);*/
+      max-width: calc(100% - 20px);
       width: 100vh;
     }
   }

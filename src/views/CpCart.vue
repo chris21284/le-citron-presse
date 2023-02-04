@@ -3,7 +3,7 @@
 
 
 </template>
-
+/* eslint-disable */
 <script>
 export default {
   name: 'CpCart',
@@ -12,7 +12,7 @@ export default {
   methods: {
     html() {
       var formattedBody = "FirstLine \n Second Line \n Third Line";
-      var mailToLink = "mailto:x@y.com?body=" + encodeURIComponent(formattedBody);
+      var mailToLink = "mailto:"+ process.env.VUE_APP_LE_CITRON_PRESSE_MAIL+"?body=" + encodeURIComponent(formattedBody);
       window.location.href = mailToLink;
     }
   }
