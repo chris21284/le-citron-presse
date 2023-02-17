@@ -9,11 +9,11 @@
     </div>
     <div class="buttons-line">
       <button class="more-info" @click="redirect">Plus d'infos</button>
-      <button class="material-symbols-outlined cart" @click="decrementNumberOfElement()">
+      <button class="material-symbols-outlined add-to-cart" @click="decrementNumberOfElement()">
         remove
       </button>
-      <div :id="'nb-elem'+article._id" class="nb-elements">{{nbToOrder}}</div>
-      <button class="material-symbols-outlined cart" @click="incrementNumberOfElement()">
+      <div :id="'nb-elem'+article._id" class="nb-elements">{{numberToOrder}}</div>
+      <button class="material-symbols-outlined add-to-cart" @click="incrementNumberOfElement()">
         add
       </button>
 
@@ -39,12 +39,16 @@
       },
       article: {
         type: Object
+      },
+      nbToOrder: {
+        type: Number,
+        default: 1,
       }
     },
     data() {
       return {
         images : null,
-        nbToOrder: 1,
+        numberToOrder: 1,
       }
     },
     computed: {
@@ -67,23 +71,24 @@
         //<router-link :to="{path: `articles/${article._id}`}"
       },
       addToCart() {
-        this.$emit("add-cart", this.id);
+        this.$emit("add-cart", this.article);
       },
       importAll(r) {
         const prefix = (process.env.NODE_ENV === 'production') ? '/' : '';
         return r.keys().reduce((json, value) => {json[value] = prefix + r(value); return json; }, {});
       },
       decrementNumberOfElement() {
-        if(this.nbToOrder != 1) {
-          this.nbToOrder--;
+        if(this.numberToOrder != 1) {
+          this.numberToOrder--;
         }
       },
       incrementNumberOfElement() {
-        this.nbToOrder++;
+        this.numberToOrder++;
       }
     },
     created() {
       this.images = this.importAll(require.context('../assets/images/', false, /\.webp$/));
+      this.numberToOrder = this.nbToOrder;
     }
   }
 </script>
@@ -208,7 +213,7 @@
     justify-content: center;
   }
 
-  .preview .buttons-line button.cart {
+  .preview .buttons-line button.add-to-cart {
     background-color:var(--green-second-button);
     border: 0px;
     border-radius: 50px;

@@ -1,9 +1,10 @@
 <template>
-  <CpHeader :number-of-elements="numberElementInCart"/>
-  <div class="main-content">
-    <router-view @add-cart="onAddToCart"/>
+  <CpHeader :number-of-elements="numberElementInCart" :show-mobile-cart="showCaddy" @updateCartCount="updateCartCount" @click="onClick"
+            @open-mobile-cart="onOpenMobileCart"/>
+  <div class="main-content" @click="onClick">
+    <router-view @add-cart="onAddToCart" @updateCartCount="updateCartCount" />
   </div>
-  <CpFooter/>
+  <CpFooter @click="onClick"/>
 </template>
 
 <style>
@@ -78,14 +79,17 @@ import CpFooter from "@/CpFooter";
 export default {
   components: {CpHeader, CpFooter},
   data() {
-    return {numberElementInCart: 0};
+    return {
+      numberElementInCart: 0,
+      showCaddy: false,
+    };
   },
   mounted() {
     this.checkLocalStorage();
   },
   methods: {
     checkLocalStorage() {
-        let cart = localStorage.getItem('myCart');
+        let cart = localStorage.getItem(process.env.VUE_APP_CART);
         if(cart == null) {
           this.numberElementInCart = 0;
         }
@@ -94,10 +98,10 @@ export default {
           this.numberElementInCart = Object.keys(cart).length;
         }
     },
-
-    onAddToCart(id, nbElement) {
+    onAddToCart(article, nbElement) {
+      const id = article._id;
       const nbElem = nbElement || document.getElementById('nb-elem' + id).innerHTML;
-      let cart = localStorage.getItem('myCart');
+      let cart = localStorage.getItem(process.env.VUE_APP_CART);
       if(cart == null) {
         cart = {};
       }
@@ -105,9 +109,23 @@ export default {
         cart = JSON.parse(cart);
       }
       
-      cart[id] = parseInt(nbElem);
-      localStorage.setItem('myCart', JSON.stringify(cart));
+      cart[id] = {id: id, name: article.title, nbElement: parseInt(nbElem), photo: article.photos?.[0]};
+      localStorage.setItem(process.env.VUE_APP_CART, JSON.stringify(cart));
+      this.updateCartCount();
+    },
+    updateCartCount() {
       this.checkLocalStorage();
+    },
+    onClick() {
+      this.showCaddy = false;
+    },
+    onOpenMobileCart(showCaddy) {
+      if(this.$router.currentRoute.value.path === '/cart') {
+        this.showCaddy = false; // on n'affiche pas le caddy en overlay si l'on est en mode mobile
+      }
+      else {
+        this.showCaddy = !showCaddy;
+      }
     }
   }
 }

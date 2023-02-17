@@ -2,6 +2,7 @@
   <header>
     <router-link to="/">
       <img :src="logoSmall" class="logo-small">
+      <img :src="title" class="logo-title">
     </router-link>
     <nav>
       <span class="link">
@@ -24,32 +25,63 @@
         </router-link>
       </span>-->
     </nav>
-    <div class="main-caddy">
-      <img src="./assets/caddy.png" >
-      <div class="number" v-if="showNumber">{{numberOfElements}}</div>
+    <div class="main-caddy-mobile" v-if="showCaddyButton">
+      <router-link to="/cart">
+        <img src="./assets/caddy.png" >
+        <div class="number">{{numberOfElements}}</div>
+      </router-link>
     </div>
-      <img src="./assets/biomaison.png" class="bio-image">
+    <div class="main-caddy" v-if="showCaddyButton" @click="changeDisplayCaddyMobile">
+        <img src="./assets/caddy.png" >
+        <div class="number">{{numberOfElements}}</div>
+    </div>
+    <cp-cart v-if="showCartMobile" @update-cart-count="updateCartCount"/>
+    <img src="./assets/biomaison.png" class="bio-image">
   </header>
 </template>
 
 <script>
+import CpCart from "@/views/CpCart.vue";
+
 export default {
   name: 'CpHeader',
+  components: {CpCart},
   props: {
     numberOfElements: {
       type: Number,
       default: 0
+    },
+    showMobileCart: {
+      type: Boolean,
+      default: true,
     }
   },
   computed: {
-    showNumber() {
+    showCaddyButton() {
       return this.numberOfElements != 0;
     },
-    logoSmall() {
-      let srcDir = require.context('./assets/', false, /\.png$/);
-      return srcDir('./' + 'logo-small.png');
+    showCartMobile() {
+      return this.showCaddyButton && this.showMobileCart;
     },
+    srcDir() {
+      return require.context('./assets/', false, /\.png$/);
+    },
+    logoSmall() {
+      return this.srcDir('./logo-small-sans-titre.png');
+    },
+    title() {
+      return this.srcDir('./titre.png');
+    }
   },
+  methods: {
+    changeDisplayCaddyMobile(event) {
+      event.stopPropagation();
+      this.$emit("open-mobile-cart", this.showMobileCart);
+    },
+    updateCartCount() {
+      this.$emit("update-cart-count");
+    }
+  }
 }
 </script>
 
@@ -69,6 +101,12 @@ export default {
     height: 290px;
     margin-left: -55px;
     margin-top: 125px;
+  }
+
+  header img.logo-title {
+    height: 75px;
+    margin-left: -236px;
+    margin-bottom: 167px;
   }
 
   header img.bio-image {
@@ -118,7 +156,36 @@ export default {
     padding: 2px 7px;
   }
 
-  header .main-caddy {
+  header .cart {
+    --color-bg-cart: #ffe374;
+    position: absolute;
+    border-radius: 10px;
+    top: 67px;
+    right: 20px;
+    height: calc(100vh - 80px);
+    width: 400px;
+    box-shadow: 3px 5px 7px 1px;
+  }
+
+  header .cart:before {
+    content: '\25C0';
+    rotate: 90deg;
+    font-size: 19px;
+    border-color: transparent;
+    position: absolute;
+    top: -18px;
+    right: 139px;
+  }
+
+  header .cart ul {
+    padding-left: 0px;
+    min-height: calc(100% - 115px);
+    height: calc(100% - 115px);
+    overflow-x: auto;
+  }
+
+  header .main-caddy,
+  header .main-caddy-mobile {
     background-color: var(--green-button);
     border-radius: 50%;
     display: flex;
@@ -129,16 +196,25 @@ export default {
     justify-content: center;
   }
 
-  header .main-caddy:hover {
+  header .main-caddy-mobile,
+  header .main-caddy-mobile .number {
+    visibility: hidden;
+    width: 0px;
+  }
+
+  header .main-caddy:hover,
+  header .main-caddy-mobile:hover {
     filter: brightness(0.8);
   }
 
-  header .main-caddy img {
+  header .main-caddy img,
+  header .main-caddy-mobile img{
     height: 80%;
     width: 80%;
   }
 
-  header .main-caddy .number {
+  header .main-caddy .number,
+  header .main-caddy-mobile .number{
     display: block;
     position: absolute;
     top: -6px;
@@ -166,8 +242,21 @@ export default {
       margin-top: 125px;
     }
 
-    header .main-caddy {
+    header .main-caddy,
+    header .main-caddy .number {
+      visibility: hidden;
+      width: 0px;
+    }
+
+    header .main-caddy-mobile {
+      visibility: visible;
+      width: 50px;
       margin-right: 14px;
+    }
+
+    header .main-caddy-mobile .number {
+      visibility: visible;
+      padding-right: 14px;
     }
   }
 </style>

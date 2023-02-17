@@ -4,7 +4,8 @@
       :id="getId(article)"
       :key="getId(article)"
       :article="article"
-      @add-cart="onAddCart(getId(article))"/>
+      :nb-to-order="getNbFor(article)"
+      @add-cart="onAddCart"/>
   </div>
 </template>
 
@@ -20,6 +21,7 @@ export default {
   data() {
     return {
       articles: [],
+      cart: undefined,
     }
   },
   methods: {
@@ -30,16 +32,33 @@ export default {
         this.articles = resp;
       });
     },
-    onAddCart(id) {
-      this.$emit("add-cart", id);
+    onAddCart(article, nbToOrder) {
+      this.$emit("add-cart", article, nbToOrder);
     },
     getId(article) {
       return article._id.toString();
-    }
+    },
+    getNbFor(article) {
+      const nb = this.cart?.[article._id.toString()]?.['nbElement'];
+      return nb || 1;
+    },
+    getCart() {
+      let cart = localStorage.getItem(process.env.VUE_APP_CART);
+      if(cart == null) {
+        cart = {};
+      }
+      else {
+        cart = JSON.parse(cart);
+      }
+      return cart;
+    },
   },
   mounted() {
     this.getListOfArticles();
   },
+  created() {
+    this.cart = this.getCart();
+  }
 }
 </script>
 
@@ -55,7 +74,6 @@ export default {
     height: 100%;
     max-width: 1400px;
     width: calc(100% - 10px);
-    width: 100%;
   }
 
   .list-article router-link {

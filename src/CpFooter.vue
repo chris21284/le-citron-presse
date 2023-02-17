@@ -6,7 +6,7 @@
     </a>
 
     <a href="tel:+33632591451" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined" title="Numéro de téléphone : 06-32-59-14-51">contact_phone</span> <label>06-32-59-14-51</label></a>
-    <a :href="'mail:' + mail" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined" title="Nous contacter">mail</span><label>Nous contacter</label></a>
+    <a :href="mailContact" target="_blank" rel="noopener noreferrer"><span class="material-symbols-outlined" title="Nous contacter">mail</span><label>Nous contacter</label></a>
     <span class="material-symbols-outlined" title="Aubagne et alentours">home_pin</span><label>Aubagne et alentours</label>
   </footer>
 </template>
@@ -19,6 +19,9 @@ export default {
   computed: {
     mail() {
       return process.env.VUE_APP_LE_CITRON_PRESSE_MAIL;
+    },
+    mailContact() {
+      return 'mailto:' + this.mail + '?subject=Contact';
     }
   }
 }

@@ -18,11 +18,11 @@
         <div class="desc">{{article.description}}</div>
       </div>
       <div class="buttons-line">
-        <button class="material-symbols-outlined cart" @click="decrementNumberOfElement()">
+        <button class="material-symbols-outlined add-to-cart" @click="decrementNumberOfElement()">
           remove
         </button>
         <div :id="'nb-elem'+article._id" class="nb-elements">{{nbToOrder}}</div>
-        <button class="material-symbols-outlined cart" @click="incrementNumberOfElement()">
+        <button class="material-symbols-outlined add-to-cart" @click="incrementNumberOfElement()">
           add
         </button>
         <div class="main-caddy" @click="addToCart">
@@ -118,7 +118,7 @@ export default {
       this.nbToOrder++;
     },
     addToCart() {
-      this.$emit("add-cart", this.article._id.toString(), this.nbToOrder);
+      this.$emit("add-cart", this.article, this.nbToOrder);
     },
   },
   created() {
@@ -216,7 +216,7 @@ export default {
     min-height: 59px;
   }
 
-  .article .buttons-line button.cart {
+  .article .buttons-line button.add-to-cart {
     background-color: var(--green-second-button);
     border: 0px;
     border-radius: 50px;
@@ -363,10 +363,10 @@ export default {
     background: #4CAF50;
   }
 
-  .text { grid-area: 1 / 2 / 2 / 6; }
-  .carousel { grid-area: 1 / 1 / 4 / 2; }
-  .buttons-line { grid-area: 2 / 2 / 4 / 3; }
-  .allergene { grid-area: 2 / 3 / 4 / 4; }
+  .article .text { grid-area: 1 / 2 / 2 / 6; }
+  .article .carousel { grid-area: 1 / 1 / 4 / 2; }
+  .article .buttons-line { grid-area: 2 / 2 / 4 / 3; }
+  .article .allergene { grid-area: 2 / 3 / 4 / 4; }
 
   @media only screen and (max-width: 650px) {
     .article {
@@ -385,16 +385,16 @@ export default {
       margin: 0px 10px;
     }
 
-    .carousel {
+    .article .carousel {
       width: 100%;
     }
-    .buttons-line {
+    .article .buttons-line {
       grid-area: 4 / 1 / 5 / 2;
     }
-    .text {
+    .article .text {
       grid-area: 5 / 1 / 6 / 2;
     }
-    .allergene {
+    article .allergene {
       grid-area: 6 / 1 / 7 / 2;
     }
   }
