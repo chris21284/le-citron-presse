@@ -383,6 +383,7 @@ export default {
     .article .allergene {
       width: unset;
       margin: 0px 10px;
+      grid-area: 6 / 1 / 7 / 4;
     }
 
     .article .carousel {

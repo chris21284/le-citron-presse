@@ -27,10 +27,31 @@
 </template>
 
 <script>
+
+import { app, credentials } from "../utils/mongo.client";
+
 export default {
   name: 'CpHome',
   components: {
-  }
+  },
+  data() {
+    return {
+      infos: [],
+    }
+  },
+  methods: {
+    async getListOfInfos() {
+      console.log("gest list of infos");
+      const user = await app.logIn(credentials);
+      const listOfInfos = user.functions.getAllInformations();
+      listOfInfos.then((resp) => {
+        this.infos = resp;
+      });
+    },
+  },
+  mounted() {
+    this.getListOfInfos();
+  },
 }
 </script>
 

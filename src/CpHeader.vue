@@ -35,7 +35,7 @@
         <img src="./assets/caddy.png" >
         <div class="number">{{numberOfElements}}</div>
     </div>
-    <cp-cart v-if="showCartMobile" @update-cart-count="updateCartCount"/>
+    <cp-cart v-if="showCartMobile" @update-cart-count="updateCartCount" @remove-cart="onRemoveCart"/>
     <img src="./assets/biomaison.png" class="bio-image">
   </header>
 </template>
@@ -80,6 +80,9 @@ export default {
     },
     updateCartCount() {
       this.$emit("update-cart-count");
+    },
+    onRemoveCart() {
+      this.$emit('remove-cart');
     }
   }
 }

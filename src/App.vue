@@ -1,8 +1,8 @@
 <template>
   <CpHeader :number-of-elements="numberElementInCart" :show-mobile-cart="showCaddy" @updateCartCount="updateCartCount" @click="onClick"
-            @open-mobile-cart="onOpenMobileCart"/>
+            @open-mobile-cart="onOpenMobileCart" @remove-cart="onRemoveCart"/>
   <div class="main-content" @click="onClick">
-    <router-view @add-cart="onAddToCart" @updateCartCount="updateCartCount" />
+    <router-view @add-cart="onAddToCart" @updateCartCount="updateCartCount" @remove-cart="onRemoveCart" />
   </div>
   <CpFooter @click="onClick"/>
 </template>
@@ -114,6 +114,10 @@ export default {
       this.updateCartCount();
     },
     updateCartCount() {
+      this.checkLocalStorage();
+    },
+    onRemoveCart() {
+      localStorage.setItem(process.env.VUE_APP_CART, JSON.stringify({}))
       this.checkLocalStorage();
     },
     onClick() {

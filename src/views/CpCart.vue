@@ -61,8 +61,7 @@ export default {
       return '';
     },
     generateMail() {
-      var formattedBody = "Bonjour,\nPourriez vous me faire un devis pour la commande ci dessous : \n"
-      console.log("mail ");
+      var formattedBody = "Bonjour,\nPourriez vous me faire un devis pour la commande ci dessous : \n";
       let item = undefined;
       for(let itemId of Object.keys(this.cart)) {
         item = this.cart[itemId];
@@ -70,7 +69,9 @@ export default {
       }
       formattedBody += "\nEn vous remerciant";
       var mailToLink = "mailto:" + process.env.VUE_APP_LE_CITRON_PRESSE_MAIL + "?subject=Devis&body=" + encodeURIComponent(formattedBody);
+      this.$emit('remove-cart');
       window.open(mailToLink, '_blank');
+
     },
     saveUpdatedCart(itemId, cartItem) {
       this.cart[itemId] = cartItem;
