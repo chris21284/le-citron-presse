@@ -3,11 +3,11 @@
     <div class="photos">
       <div class="carousel">
         <div class="photos-list2">
-          <img v-for="(name, index) in article.photos" :key="index"
+          <img v-for="(name, index) in picturesToShow" :key="index"
                :src="getPhoto(name)" :id="name" />
         </div>
         <nav class="nav-photos" v-if="showNavigationCarroussel">
-          <a :href="'#'+name" v-for="(name, index) in article.photos"
+          <a :href="'#'+name" v-for="(name, index) in picturesToShow"
              :key="index" class="link" />
         </nav>
       </div>
@@ -58,7 +58,6 @@ export default {
   data() {
     return {
       article: undefined,
-      bigPhotoName: null,
       noPhotoName: 'no-photo',
       images : null,
       nbToOrder : 1,
@@ -80,6 +79,9 @@ export default {
         classes.push('without-allergens');
       }
       return classes;
+    },
+    picturesToShow() {
+      return this.article?.photos?.length > 1 ? this.article.photos : ['nophoto'];
     }
   },
   methods: {
@@ -87,7 +89,6 @@ export default {
       const user = await app.logIn(credentials);
       user.functions.getSingleArticle(articleId).then((resp) => {
         this.article = resp;
-        this.bigPhotoName = this.article.photos ? this.article.photos[0] : this.noPhotoName;
       }).catch(() => {
         this.redirect();
       });

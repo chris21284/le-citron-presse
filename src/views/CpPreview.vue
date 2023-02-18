@@ -59,7 +59,8 @@
             namePhoto = this.article.photos[0];
         }
         else {
-          namePhoto = 'no-photo';
+          console.log("dskfdkskfk");
+          namePhoto = 'nophoto';
         }
        return this.images['./' + namePhoto + '.webp'];
       },
@@ -88,6 +89,7 @@
     },
     created() {
       this.images = this.importAll(require.context('../assets/images/', false, /\.webp$/));
+      console.log("creation image");
       this.numberToOrder = this.nbToOrder;
     }
   }
