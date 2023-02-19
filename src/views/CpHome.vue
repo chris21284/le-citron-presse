@@ -1,7 +1,9 @@
 <template>
   <div class="about">
-    <cp-information />
-    <cp-information />
+    <cp-information v-for="(info, index) in this.infos" :key="index"
+    :text="info.text" :link="info.link" :nameLink="info.nameLink"
+    />
+    <!--cp-information /-->
   </div>
 </template>
 
