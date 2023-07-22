@@ -111,7 +111,7 @@ export default {
 </script>
 
 <style>
-
+/* 
 .cart {
   --color-bg-cart: aliceblue;
   background-color: var(--color-bg-cart);
@@ -212,6 +212,6 @@ export default {
 
 .cart .buttons-cart div .material-symbols-outlined {
   margin: 10px;
-}
+} */
 
 </style>

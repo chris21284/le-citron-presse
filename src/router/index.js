@@ -1,7 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import CpHome from "@/views/CpHome";
 import CpArticle from "@/views/CpArticle";
-import CpArticles from "@/views/CpArticles";
+
+// import CpArticles from "@/views/CpArticles";
+import HomePage from "@/views/v2/HomePage";
+
 import CpCart from "@/views/CpCart";
 import NotFound from "@/NotFound";
 
@@ -19,9 +22,13 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component:CpCart// () => import(/* webpackChunkName: "about" */ '../views/CpCart.vue')
   },
-  { path: '/', component: CpArticles },
+
+  // { path: '/', component: CpArticles },
+  {path: '/', component: HomePage },
+
   { path: '/articles/:id', component: CpArticle },
-  { path: "/not-found", component: NotFound }
+  { path: "/not-found", component: NotFound },
+  { path: "/:pathMatch(.*)*", redirect: '/not-found' }
 ]
 
 const router = createRouter({

@@ -1,0 +1,24 @@
+@font-face {
+    font-family: 'bonus-coffee';
+    src: url('@/assets/fonts/Bonus-Coffee.ttf');
+}
+
+@font-face {
+    font-family: 'ps-regular';
+    src: url('@/assets/fonts/Product-Sans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'ps-italic';
+    src: url('@/assets/fonts/Product-Sans-Italic.ttf');
+}
+
+@font-face {
+    font-family: 'ps-bold';
+    src: url('@/assets/fonts/Product-Sans-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'ps-bold-italic';
+    src: url('@/assets/fonts/Product-Sans-Bold-Italic.ttf');
+}
