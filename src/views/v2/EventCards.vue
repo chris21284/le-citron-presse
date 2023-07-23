@@ -165,8 +165,8 @@
 
 <style>
     .event-cards {
-        min-height: 250px;
-        min-width: 420px;
+        min-height: 15.7rem;
+        min-width: 26.25rem;
         display: grid;
         place-items: center;
         margin-top: 2rem;
@@ -285,6 +285,37 @@
         z-index: 50;
 
         height: 4vh;
+    }
+
+    @media only screen and (max-width: 500px) {
+        .event-cards {
+            min-height: 14.7rem;
+            min-width: 22.25rem;
+        }
+    }
+
+    @media only screen and (max-width: 440px) {
+        .event-cards {
+            min-height: 13.7rem;
+            min-width: 19.25rem;
+        }
+    }
+
+    @media only screen and (max-width: 390px) {
+        .event-cards {
+            min-height: 10.7rem;
+            min-width: 14.25rem;
+        }
+
+        .event-cards .slider .btn {
+            font-size: 15px;
+            width: 35px;
+            height: 35px;
+            padding-top: 0;
+        }
+
+        .event-cards .slider .pagination .nav { gap: 1rem; }
+        .event-cards .slider .pagination .nav .page-btn .imgSelectorIcon { height: 2vh; }
     }
     
 </style>

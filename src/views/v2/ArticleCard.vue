@@ -1,7 +1,7 @@
 <template>
     <div class="article-card">
 
-        <img class="article-img" :src="getFirstImg(article)" :alt="article.title"/>
+        <img class="article-img" :src="getFirstImg(article)" :alt="article.title" loading="lazy"/>
 
         <div class="product-info">
             <div class="product-text">
@@ -27,7 +27,7 @@
             <button class="more-info">Plus d'infos</button>
             
             <div class="quick-cart">
-                <img src="@/assets/v2/panier.png" alt="Panier" />
+                <img src="@/assets/v2/panier.png" alt="Panier" loading="lazy" />
                 <div class="plus-sign">+</div>
             </div>
         </div>
@@ -46,8 +46,13 @@
                 let articleImgId = article.photos ? article.photos[0] : '';
                 let img = this.$root.store.getImgById(articleImgId);
                 return img;
-            }
-        },
+            },
+
+            getTitle() { return this.article.title; },
+            getDescription() { return this.article.description; },
+            getTags() { return this.article.tags; },
+            getElement() { return this.$el; }
+        }
     }
 </script>
 
@@ -153,6 +158,7 @@
         font-family: ps-regular, Arial, Helvetica, sans-serif;
         color: var(--white);
         font-size: 0.8rem;
+        cursor: pointer;
     }
 
     .quick-cart {
@@ -180,6 +186,20 @@
         z-index: 15;
         transform: translateX(25%) translateY(-40%);
         color: var(--light-green);
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .article-img { max-height: 17rem; }
+        .product-text h3 { font-size: 0.9rem; }
+        .product-text p { font-size: 0.75rem; }
+        .price { font-size: 0.9rem; }
+        .menu { max-height: 2rem; }
+        .more-info { font-size: 0.6rem; }
+        .quick-cart { padding: 0.4rem; }
+        .quick-cart img { max-width: 1.3rem; }
+        .quick-cart .plus-sign { font-size: 2.2rem; }
+
+        .article-card:hover .product-info { padding-bottom: 3.3rem; }
     }
 
 </style>

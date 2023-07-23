@@ -1,7 +1,7 @@
 <template>
     <div class="event-card">
         <!-- img from props, border color from props, name & description from props, maybe little badge icon for type of event card (concours / promo / etc) -->
-        <img class="back-img" :src="getImgById(imgId)" :alt="imgId" />
+        <img class="back-img" :src="getImgById(imgId)" :alt="imgId" loading="lazy" />
 
         <div class="title">
             <h2>{{ eventType }}</h2>
@@ -96,7 +96,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: 35px 0px 17px 20px;
+        padding: 2.2rem 0 1.1rem 1.3rem;
         background: linear-gradient(0deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
         border-radius: 10px;
     }
@@ -111,6 +111,21 @@
         font-family: ps-italic, Arial, Helvetica, sans-serif;
         font-size: 0.9rem;
         color: rgba(255, 255, 255, 0.7);
+    }
+
+    @media only screen and (max-width: 440px) {
+        .event-card { border-width: 3px; }
+    }
+
+    @media only screen and (max-width: 390px) {
+        .title {
+            padding: 0.3rem 0.8rem;
+            font-size: 0.5rem;
+        }
+
+        .product-info { padding: 1.2rem 0 0.7rem 0.9rem; }
+        .product-info h3 { font-size: 1.2rem; }
+        .product-info p { font-size: 0.75rem; }
     }
 
 </style>

@@ -1,14 +1,6 @@
 <template>
     <div class="about-us-card">
-        <img class="bio-img" src="@/assets/v2/lemon_slice_v5.png" alt="Bio et 100% fait maison"/>
-
-        <div class="corner-deco">
-            <div class="deco"></div>
-            <div class="deco"></div>
-            <div class="deco"></div>
-            <div class="deco"></div>
-            <div class="deco"></div>
-        </div>
+        <img class="bio-img" src="@/assets/v2/lemon_slice_v5.png" alt="Bio et 100% fait maison" loading="lazy"/>
 
         <div class="side-info">
 
@@ -19,13 +11,13 @@
             
             <div class="info spacer">
                 <div class="side-row">
-                    <img class="symbol" src="@/assets/v2/pin_home.png" alt="Localisation" />
+                    <img class="symbol" src="@/assets/v2/pin_home.png" alt="Localisation" loading="lazy"/>
                     <p>Aubagne et alentours</p>
                 </div>
 
                 <div class="side-row">
                     <a href="https://www.instagram.com/le_citronpresse/" target="_blank" rel="noopener noreferrer">
-                        <img class="symbol" src="@/assets/v2/instagram-logo-white.png" alt="Instagram">
+                        <img class="symbol" src="@/assets/v2/instagram-logo-white.png" alt="Instagram" loading="lazy"/>
                     </a>
                     <p>Retrouvez toutes nos préparations, actualités et même des concours sur Instagram !</p>
                 </div>
@@ -50,11 +42,9 @@
     .about-us-card {
         display: flex;
         flex-direction: row;
-        gap: 2rem;
-        padding: 1rem 2rem;
-        background-color: var(--light-green);
         border-radius: 30px;
         position: relative;
+        margin: 0 0.3rem;
     }
 
     .about-us-card h2 {
@@ -80,7 +70,6 @@
     }
     .contact-us-btn:hover {
         cursor: pointer;
-        /* border: 2px solid var(--green); */
         background-color: var(--lighter-green);
         color: var(--green);
     }
@@ -90,9 +79,13 @@
     }
 
     .bio-img {
+        max-width: 13rem;
         max-height: 13rem;
         aspect-ratio: 1 / 1;
         z-index: 15;
+        background-color: var(--light-green);
+        padding: 1rem 0.3rem 1rem 1rem;
+        border-radius: 30px 0 0 30px;
     }
 
     .side-info {
@@ -101,6 +94,9 @@
         max-width: 30rem;
         align-items: flex-start;
         justify-content: space-between;
+        background-color: var(--light-green);
+        border-radius: 0 30px 30px 30px;
+        padding: 0.7rem;
     }
 
     .info {
@@ -138,7 +134,6 @@
         flex-direction: row;
         align-items: center;
         gap: 1rem;
-        /* margin-left: 3rem; */
     }
 
     .side-row p {
@@ -152,68 +147,12 @@
         width: 1.8rem;
     }
 
-    .corner-deco {
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        top: 0;
-        pointer-events: none;
-    }
+    @media only screen and (max-width: 770px) {
+        .about-us-card { flex-direction: column; }
 
-    .deco:nth-child(1) {
-        position: absolute;
-        top: 0;
-        left: 0;
-        bottom: 5rem;
-        background-color: var(--light-green);
-        min-width: 5rem;
-        border-radius: 30px 0 0 30px;
-        z-index: 12;
-    }
-
-    .deco:nth-child(2) {
-        position: absolute;
-        left: 0;
-        top: 0;
-        background-color: var(--yellow);
-        min-height: 15rem;
-        min-width: 2rem;
-        border-radius: 30px 0 0 0;
-        z-index: 11;
-    }
-
-    .deco:nth-child(3) {
-        position: absolute;
-        left: 15rem;
-        bottom: 0;
-        right: 0;
-        background-color: var(--yellow);
-        min-height: 3rem;
-        min-width: 5rem;
-        border-radius: 0 0 30px 0;
-        z-index: 11;
-    }
-
-    .deco:nth-child(4) {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 33.3rem;
-        background-color: var(--yellow);
-        min-height: 5rem;
-        border-radius: 0 30px 0 30px;
-        z-index: 11;
-    }
-
-    .deco:nth-child(5) {
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        left: 15.7rem;
-        background-color: var(--light-green);
-        min-height: 3rem;
-        border-radius: 0 0 30px 30px;
-        z-index: 12;
+        .bio-img {
+            border-radius: 30px 30px 0 0;
+            padding: 1rem;
+        }
     }
 </style>

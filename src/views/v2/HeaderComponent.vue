@@ -14,6 +14,12 @@
             <router-link to="/contact"><span class="link">CONTACT</span></router-link>
         </nav>
 
+        <div class="nav-hamburger">
+            <!-- icon top right trigger appearing of nav menu left panel max width -->
+            <div class="hamburger-icon"></div>
+            <div class="nav-panel"></div>
+        </div>
+
         <div class="cart-container">
             <div class="cart">
                 <img src="@/assets/v2/panier.png" alt="Panier"/>
@@ -24,28 +30,27 @@
 </template>
 
 <script>
-
-export default {
-    name: 'HeaderComponent',
-    props: {
-        numberOfElements: {
-            type: Number,
-            default: 0
-        },
-        showMobileCart: {
-            type: Boolean,
-            default: true
-        },
-        isShrinked: {
-            type: Boolean,
-            default: false
-        },
-        currentPath: {
-            type: String,
-            default: ''
+    export default {
+        name: 'HeaderComponent',
+        props: {
+            numberOfElements: {
+                type: Number,
+                default: 0
+            },
+            showMobileCart: {
+                type: Boolean,
+                default: true
+            },
+            isShrinked: {
+                type: Boolean,
+                default: false
+            },
+            currentPath: {
+                type: String,
+                default: ''
+            }
         }
     }
-}
 </script>
 
 <style>
@@ -76,6 +81,10 @@ export default {
         animation: appear 0.3s normal forwards ease-in-out;
     }
 
+    .nav-hamburger {
+        position: relative;
+    }
+
     @keyframes appear {
         0% {
             opacity: 0;
@@ -94,6 +103,7 @@ export default {
         height: 100%;
         display: flex;
         align-items: center;
+        font-size: 1rem;
     }
 
     .link {
@@ -182,5 +192,33 @@ export default {
         background-color: var(--light-green);
         border-radius: 50%;
         cursor: pointer;
+    }
+
+    @media only screen and (max-width: 1200px) {
+        header { min-height: 7rem; }
+        .logo { max-width: 14rem; }
+        .shrink-title { left: 15rem; }
+        nav a { font-size: 0.75rem; }
+        .link { min-height: 2.3rem; }
+    }
+
+    @media only screen and (max-width: 980px) {
+        header { min-height: 6rem; }
+        .logo { max-width: 12rem; }
+        .titre { max-width: 12rem; }
+        .shrink-title { 
+            max-width: 9rem;
+            left: 13.5rem; 
+        }
+    }
+
+    @media only screen and (max-width: 570px) {
+        header { min-height: 6rem; }
+        .logo { max-width: 12rem; }
+        .titre { max-width: 12rem; }
+        .shrink-title { 
+            max-width: 9rem;
+            left: 13.5rem; 
+        }
     }
 </style>
