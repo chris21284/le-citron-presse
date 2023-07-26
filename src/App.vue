@@ -19,10 +19,8 @@
 </template>
 
 <script>
-  //import CpHeader from "@/CpHeader";
   import HeaderComponent from "@/views/v2/HeaderComponent"
   import FooterComponent from "./views/v2/FooterComponent.vue";
-  // import CpFooter from "@/CpFooter";
   import { useStore } from "./utils/store";
 
   export default {
@@ -195,6 +193,14 @@
   }
   ::-webkit-scrollbar-thumb:hover {
     background: var(--lighter-green);
+  }
+
+  @media only screen and (max-width: 570px) {
+    .main-content { padding-top: 4rem; }
+  }
+
+  @media only screen and (max-width: 390px) {
+    .main-content { padding-top: 2.5rem; }
   }
 
 </style>

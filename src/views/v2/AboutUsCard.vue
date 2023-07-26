@@ -38,7 +38,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     .about-us-card {
         display: flex;
         flex-direction: row;

@@ -144,7 +144,7 @@
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        max-height: 2rem;
+        /* max-height: 2rem; */
         align-items: flex-end;
         justify-content: center;
         padding: 1rem;
@@ -191,8 +191,8 @@
         left: 0;
         top: 100%;
         width: 100%;
-        max-width: 20rem;
-        min-height: 30rem;
+        max-width: 15rem;
+        min-height: 20rem;
         background-color: var(--light-green);
         border-radius: 0 0 30px 0;
         animation: appear-mobile 0.3s normal forwards ease-in-out;
@@ -326,12 +326,25 @@
     }
 
     @media only screen and (max-width: 570px) {
-        header { min-height: 6rem; }
-        .logo { max-width: 12rem; }
-        .titre { max-width: 12rem; }
+        /* header { min-height: 6rem; } */
+        /* .logo { max-width: 9rem; } */
+        .titre { max-width: 9rem; }
         .shrink-title { 
             max-width: 9rem;
             left: 13.5rem; 
+        }
+
+        .nav-hamburger { margin-right: 2rem; }
+        .hamburger_icon { gap: 0.3rem; }
+        .hamburger_layer { min-width: 2rem; }
+        .hamburger-active { max-width: 1.75rem; }
+    }
+
+    @media only screen and (max-width: 430px) {
+        .titre { max-width: 7rem; }
+        .shrink-title {
+            max-width: 7rem;
+            left: 12.2rem;
         }
     }
 </style>

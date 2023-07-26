@@ -4,9 +4,13 @@ import CpArticle from "@/views/CpArticle";
 
 // import CpArticles from "@/views/CpArticles";
 import HomePage from "@/views/v2/HomePage";
+import AboutUsPage from "@/views/v2/AboutUsPage";
+import ContactPage from "@/views/v2/ContactPage";
 
 import CpCart from "@/views/CpCart";
-import NotFound from "@/NotFound";
+// import NotFound from "@/NotFound";
+
+import NotFoundPage from "@/views/v2/NotFoundPage";
 
 const routes = [
   {
@@ -24,10 +28,15 @@ const routes = [
   },
 
   // { path: '/', component: CpArticles },
-  {path: '/', component: HomePage },
+  { path: '/', component: HomePage },
+  { path: '/a-propos-de-nous', component: AboutUsPage },
+  { path: '/contact', component: ContactPage },
+  // { path: '/macarons', component: MacaronPage },
+  // { path: '/patisserie', component: PatisseriePage },
+  // { path: '/biscuits', component: BiscuitsPage },
 
   { path: '/articles/:id', component: CpArticle },
-  { path: "/not-found", component: NotFound },
+  { path: "/not-found", component: NotFoundPage },
   { path: "/:pathMatch(.*)*", redirect: '/not-found' }
 ]
 
