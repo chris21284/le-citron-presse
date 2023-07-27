@@ -2,15 +2,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 import CpHome from "@/views/CpHome";
 import CpArticle from "@/views/CpArticle";
 
-// import CpArticles from "@/views/CpArticles";
-import HomePage from "@/views/v2/HomePage";
-import AboutUsPage from "@/views/v2/AboutUsPage";
-import ContactPage from "@/views/v2/ContactPage";
+import HomePage from "@/views/v2/Pages/HomePage";
+import AboutUsPage from "@/views/v2/Pages/AboutUsPage";
+import ContactPage from "@/views/v2/Pages/ContactPage";
 
 import CpCart from "@/views/CpCart";
-// import NotFound from "@/NotFound";
 
-import NotFoundPage from "@/views/v2/NotFoundPage";
+import NotFoundPage from "@/views/v2/Pages/NotFoundPage";
 
 const routes = [
   {
@@ -27,7 +25,6 @@ const routes = [
     component:CpCart// () => import(/* webpackChunkName: "about" */ '../views/CpCart.vue')
   },
 
-  // { path: '/', component: CpArticles },
   { path: '/', component: HomePage },
   { path: '/a-propos-de-nous', component: AboutUsPage },
   { path: '/contact', component: ContactPage },

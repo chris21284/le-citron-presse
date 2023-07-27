@@ -34,7 +34,7 @@
 
 <script>
     import { app, credentials } from "@/utils/mongo.client";
-    import ArticleCard from "@/views/v2/ArticleCard.vue";
+    import ArticleCard from "@/views/v2/SingleElement/ArticleCard.vue";
 
     export default {
         name: "AllArticles",
@@ -66,8 +66,8 @@
             search() {
                 let searchValue = this.search_input.value.toLowerCase();
 
-                for (let i = 0; i < this.init_articles_el.length; i++) {
-                    let article = this.init_articles_el[i];
+                for (const element of this.init_articles_el) {
+                    let article = element;
 
                     // check for title match
                     // check for tag matching (filter?)

@@ -1,6 +1,13 @@
 <template>
     <div class="page404">
-        <img class="lemon-bed" src="@/assets/v2/lemon_bed_404.png" alt="Sleepy Lemon" />
+        <!-- <div class="img-bg">
+            <div class="side-img"></div>
+            <img class="lemon-bed" src="@/assets/v2/lemon_bed_404.png" alt="Sleepy Lemon" />
+        </div> -->
+
+        <div class="img-bg">
+            <img class="lemon-bed" src="@/assets/v2/lemon_bed_404.png" alt="Sleepy Lemon" />
+        </div>
 
         <div class="side-info">
             <h1>Rien à voir par ici</h1>
@@ -25,14 +32,29 @@
         padding: 5rem 2rem;
     }
 
-    .lemon-bed {
-        max-width: 30rem;
+    .img-bg {
+        position: relative;
         width: 100%;
-        object-fit: cover;
+        aspect-ratio: 1 / 1;
+        max-width: 30rem;
         background-color: var(--light-green);
         border-radius: 50%;
         overflow: visible;
+        transition: all cubic-bezier(0.2, 0, 0.8, 1) 0.7s;
     }
+
+    .lemon-bed {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: all cubic-bezier(0.2, 0, 0.8, 1) 0.7s;
+    }
+
+    .img-bg:hover { transform: scale(1.2); }
+    .img-bg:hover .lemon-bed { transform: scale( calc(1 / 1.2) ); }
 
     .page404 .side-info {
         display: flex;

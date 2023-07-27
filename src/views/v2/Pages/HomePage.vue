@@ -38,11 +38,11 @@
 </template>
 
 <script>
-    import EventCards from '@/views/v2/EventCards.vue'
-    import AboutUsCard from '@/views/v2/AboutUsCard.vue'
-    import SeparatorBar from '@/views/v2/SeparatorBar.vue';
-    import CategoryCards from './CategoryCards.vue';
-    import AllArticles from './AllArticles.vue';
+    import EventCards from '@/views/v2/Component/EventCards.vue'
+    import AboutUsCard from '@/views/v2/SingleElement/AboutUsCard.vue'
+    import SeparatorBar from '@/views/v2/SingleElement/SeparatorBar.vue';
+    import CategoryCards from '@/views/v2/Component/CategoryCards.vue';
+    import AllArticles from '@/views/v2/Component/AllArticles.vue';
 
     export default {
         name:'HomePage',

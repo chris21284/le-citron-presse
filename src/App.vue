@@ -19,9 +19,9 @@
 </template>
 
 <script>
-  import HeaderComponent from "@/views/v2/HeaderComponent"
-  import FooterComponent from "./views/v2/FooterComponent.vue";
-  import { useStore } from "./utils/store";
+  import HeaderComponent from "@/views/v2/Component/HeaderComponent"
+  import FooterComponent from "@/views/v2/Component/FooterComponent.vue";
+  import { useStore } from "@/utils/store";
 
   export default {
     components: { HeaderComponent, FooterComponent }, //{CpHeader, CpFooter},

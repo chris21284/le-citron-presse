@@ -29,7 +29,7 @@
 </template>
 
 <script>
-    import EventSingleCard from "@/views/v2/EventSingleCard.vue";
+    import EventSingleCard from "@/views/v2/SingleElement/EventSingleCard.vue";
 
     export default {
         name: 'EventCards',

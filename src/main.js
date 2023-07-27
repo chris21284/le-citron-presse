@@ -1,9 +1,9 @@
 import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
-import './assets/css/custom-fonts.css'
+import App from '@/App.vue'
+import router from '@/router'
 import { createPinia } from 'pinia';
-import { ClosableDirective } from './custom_directives/outside-closable';
+import '@/assets/css/custom-fonts.css'
+import { ClosableDirective } from '@/custom_directives/outside-closable';
 
 const app = createApp(App);
 

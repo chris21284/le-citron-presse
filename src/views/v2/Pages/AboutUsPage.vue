@@ -10,7 +10,7 @@
 </template>
 
 <script>
-    import AboutUsCard from "@/views/v2/AboutUsCard.vue"
+    import AboutUsCard from "@/views/v2/SingleElement/AboutUsCard.vue"
 
     export default {
         name: 'AboutUsPage',
