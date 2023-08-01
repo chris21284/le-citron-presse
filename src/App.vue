@@ -38,6 +38,7 @@
     created() {
       this.store = useStore();
 
+      this.store.initRouter(this.$router);
       this.store.fetchAllImages(); //stores all images on startup
       this.store.initGetAllArticles();
       this.store.initUpdateEvent();

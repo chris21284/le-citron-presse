@@ -1,19 +1,26 @@
 <template>
-    <div class="cart-container">
+    <div class="cart-container" :key="componentKey">
 
         <Transition name="fullCartAnim">
             <div class="fullCart" v-if="this.isFullCartShown">
                 <!-- v-for cart item for each article in cart -->
-                <CartItem v-for="item in cart"
-                    :key="item.id"
-                    :item="item"
-                />
+                <div class="fullCartContainer">
+                    <CartItem v-for="item in cart"
+                        :key="item.id"
+                        :item="item"
+                    />
+                </div>
                 <!-- button for devis page -->
-                <button>DEVIS</button>
+                <button class="devis-btn">DEVIS</button>
             </div>
         </Transition>
         
-        <div v-outside-closable="{ exclude: ['cartImg', 'number', 'fullCart', 'fullCartAnim'], handler: 'disableFullCart' }" class="cart" @click="this.toggleFullCart">
+        <div v-outside-closable="{ exclude: ['cart-container', 
+        'fullCartContainer', 'devis-btn', 'imgContainer', 'number', 'cartImg', 
+        'number', 'fullCart', 'fullCartAnim', 'cart-item', 'deleteBtn', 'previewImg', 'info', 'decrementBtn',
+        'incrementBtn', 'numberElmtInput'], 
+        handler: 'disableFullCart' }" 
+        class="cart" @click="this.toggleFullCart">
             <div class="imgContainer"> <img class="cartImg" src="@/assets/v2/panier.png" alt="Panier"/> </div>
             <div class="number" v-if="numberOfElements > 0">{{ numberOfElements }}</div>
         </div>
@@ -30,7 +37,8 @@
             return {
                 cart: {},
                 numberOfElements: 0,
-                isFullCartShown: false
+                isFullCartShown: false,
+                componentKey: 0
             }
         },
         created() { 
@@ -38,11 +46,13 @@
             this.updateCart();
         },
         beforeUnmount() { window.removeEventListener(process.env.VUE_APP_CART_UPDATE, this.updateCart); },
-
+        
         methods: {
             updateCart() {
                 this.numberOfElements = this.$root.store.getCartNumberOfItems();
                 this.cart = this.$root.store.cart;
+                this.componentKey += 1; //force re-render - resolve bug that happens on opera 
+                //bug detail - once cart item is updated (add or minus one), it adds another empty item instead of updating the current one, that doesn't happen in chrome
             },
 
             toggleFullCart() { this.isFullCartShown = !this.isFullCartShown; },
@@ -57,11 +67,6 @@
         right: 0%;
         top: 100%;
         transform: translateX(-2.3rem);
-
-        /* background-color: var(--green);
-        border-radius: 0 0 50% 50%; */
-
-        /* min-height: 4.7rem; */
         display: flex;
         flex-direction: column;
         align-items: flex-end;
@@ -71,13 +76,16 @@
         display: flex;
         flex-direction: column;
         min-width: 25rem;
-        min-height: 39rem;
+        min-height: 80dvh;
+        max-height: 80dvh;
         width: 100%;
-        height: 100%;
+        /* height: 100%; */
         background-color: var(--green);
         border-radius: 0 0 0 5rem;
         box-sizing: border-box;
         padding: 1rem;
+        align-items: center;
+        overflow: hidden;
     }
 
     .fullCartAnim-enter-active,
@@ -88,11 +96,15 @@
     .fullCartAnim-enter-from,
     .fullCartAnim-leave-to {
         min-height: 0;
+        max-height: 0;
+        height: 0%;
+        margin: 0;
+        padding: 0;
     }
 
     .fullCartAnim-enter-to,
     .fullCartAnim-leave-from {
-        min-height: 39rem;
+        min-height: 80dvh;
     }
 
     .cart .number {
@@ -141,5 +153,31 @@
         background-color: var(--light-green);
         border-radius: 50%;
         cursor: pointer;
+    }
+
+    .fullCartContainer {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        margin-bottom: 1rem;
+        width: 100%;
+        gap: 0.3rem;
+        overflow: auto; /* test if scroll is behaving correctly with large amount of cart item */
+    }
+
+    .devis-btn {
+        background-color: var(--light-green);
+        color: var(--white);
+        border: none;
+        border-radius: 1rem;
+        padding: 1rem 2rem;
+        font-family: ps-bold, Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        max-width: 7rem;
+    }
+
+    @media only screen and (max-width: 530px) {
+        .cart-container { left: 4.5rem; }
+        .fullCart { min-width: 100%; }
     }
 </style>

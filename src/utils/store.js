@@ -4,12 +4,15 @@ import { app, credentials } from "@/utils/mongo.client";
 export const useStore = defineStore({
   id: "app",
   state: () => ({
+    router: null,
     articles: [],
     images: [],
     cart: {},
     updateCartEvent: null
   }),
   actions: {
+
+    initRouter(router) { this.router = router; },
 
     //#region IMAGES STORE
     async fetchAllImages() {
@@ -35,7 +38,6 @@ export const useStore = defineStore({
     updateCart() {
       let localCart = localStorage.getItem(process.env.VUE_APP_CART);
       this.cart = localCart ? JSON.parse(localCart) : {};
-      console.log(this.cart);
 
       window.dispatchEvent( this.updateCartEvent );
     },
@@ -48,37 +50,44 @@ export const useStore = defineStore({
       this.updateCart();
     },
 
-    //if nbElement is not given, it will try to add one on an item already in cart
-    addItemToCart(article, nbElement) {
+    addArticleToCart(article, nbElement) {
       const id = article._id;
       let nbElmt = nbElement;
 
-      if (!nbElmt) {
-        console.log(this.cart);
-        console.log(this.cart[id]);
-        if (this.cart[id]) console.log("HDHJHDKSHDJSKHD");
+      if (!nbElmt)
         nbElmt = this.cart[id] ? this.cart[id]['nbElement'] + 1 : 1;
-      }
 
       this.cart[id] = { id: id, name: article.title, nbElement: parseInt(nbElmt), photo: article.photos?.[0], price: article.price };
       this.setLocalStorageItems();
     },
 
-    removeOneItemFromCart(article) {
-      const id = article._id;
+    //if nbElement is not given, it will try to add one on an item already in cart
+    addItemToCart(cartItem, nbElement) {
+      const id = cartItem['id'];
+      let nbElmt = nbElement;
+
+      if (!nbElmt)
+        nbElmt = this.cart[id] ? this.cart[id]['nbElement'] + 1 : 1;
+
+      this.cart[id] = { id: id, name: cartItem.name, nbElement: parseInt(nbElmt), photo: cartItem.photo, price: cartItem.price };
+      this.setLocalStorageItems();
+    },
+
+    removeOneItemFromCart(cartItem) {
+      const id = cartItem['id'];
       let nbElmt = this.cart[id]['nbElement'] - 1;
 
       if (nbElmt >= 1) {
-        this.cart[id] = { id: id, name: article.title, nbElement: parseInt(nbElmt), photo: article.photos?.[0], price: article.price };
+        this.cart[id] = { id: id, name: cartItem.name, nbElement: parseInt(nbElmt), photo: cartItem.photo, price: cartItem.price };
         this.setLocalStorageItems();
         return;
       }
       
-      this.deleteItemFromCart(article); //if this article is 0 times in cart, it will be deleted from cart
+      this.deleteItemFromCart(cartItem); //if this article is 0 times in cart, it will be deleted from cart
     },
 
-    deleteItemFromCart(article) {
-      delete this.cart[article._id];
+    deleteItemFromCart(cartItem) {
+      delete this.cart[cartItem['id']];
       this.setLocalStorageItems();
     },
     //#endregion
@@ -96,7 +105,7 @@ export const useStore = defineStore({
 
     getId(obj) { return obj._id.toString(); },
 
-    redirectToArticle(articleId) { if(articleId) this.$router.push({ path: "articles/" + articleId }); },
+    redirectToArticle(articleId) { if(articleId) this.router.push({ path: "articles/" + articleId }); },
     //#endregion
   }
 });

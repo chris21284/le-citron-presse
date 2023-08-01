@@ -1,12 +1,14 @@
 <template>
     <div class="cart-item">
-        <button @click="deleteItem">X</button>
-        <img class="previewImg" :src="getImgById(item.photo)" :alt="item.name"/>
-        <div class="info">{{ item.name }}</div>
+        <div class="leftInfo">
+            <button class="deleteBtn" @click="deleteItem">🞪</button>
+            <img class="previewImg" :src="getImgById(item.photo)" :alt="item.name"/>
+            <div class="info"> <p>{{ item.name }}</p> </div>
+        </div>
         <div class="quantity-btns">
-            <button @click="decrementItem">-</button>
-            <input class="numberElmtInput" @submit="updateNumberOfItem" type="number" :value="item.nbElement"/>
-            <button @click="incrementItem">+</button>
+            <button class="decrementBtn" @click="decrementItem">-</button>
+            <input id="numberElmtInput" class="numberElmtInput" @keyup.enter="updateNumberOfItem" type="number" :value="item.nbElement"/>
+            <button class="incrementBtn" @click="incrementItem">+</button>
         </div>
     </div>
 </template>
@@ -21,7 +23,7 @@
             }
         },
         methods: {
-            updateNumberOfItem() { this.$root.store.addItemToCart(this.item, document.getElementsByClassName("numberElmtInput").value); },
+            updateNumberOfItem() { this.$root.store.addItemToCart(this.item, document.getElementById("numberElmtInput").value); },
             incrementItem() { this.$root.store.addItemToCart(this.item); },
             decrementItem() { this.$root.store.removeOneItemFromCart(this.item); },
             deleteItem() { this.$root.store.deleteItemFromCart(this.item); },
@@ -30,15 +32,104 @@
     }
 </script>
 
-<style>
+<style scoped>
     .cart-item {
         display: flex;
-        padding: 2rem;
+        padding: 0.3rem;
+        align-items: center;
+        justify-content: space-between;
+        height: 4rem;
+        background-color: var(--light-green);
+        border-radius: 1rem;
+    }
+
+    .leftInfo {
+        display: flex;
+        height: 100%;
+        gap: 0.3rem;
+        color: var(--white);
+        font-family: ps-regular, Arial, Helvetica, sans-serif;
+        font-size: 1.3rem;
+    }
+
+    .info {
+        flex-grow: 1;
+        word-wrap: break-word;
+        max-width: 10rem;
+        text-overflow: ellipsis;
     }
 
     .previewImg {
-        max-width: 2rem;
+        max-height: 100%;
         object-fit: cover;
         aspect-ratio: 1 / 1;
+    }
+
+    .deleteBtn {
+        min-height: 100%;
+        margin: 0;
+        padding: 0.3rem;
+        border-radius: 0.8rem 0 0 0.8rem;
+        border: none;
+        background-color: var(--green);
+        color: var(--white);
+        font-family: ps-bold, Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .deleteBtn:hover { background-color: var(--lighter-green); }
+
+    .quantity-btns {
+        min-height: 100%;
+        display: flex;
+        gap: 0.3rem;
+    }
+
+    .numberElmtInput {
+        font-family: ps-regular, Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        padding: 0.5rem;
+        margin: 0;
+        border: none;
+        max-width: 2rem;
+        background-color: var(--green);
+        color: var(--white);
+        text-align: center;
+        cursor: text;
+        caret-color: var(--white);
+    }
+
+    .numberElmtInput::-webkit-outer-spin-button,
+    .numberElmtInput::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .numberElmtInput[type=number] { -moz-appearance: textfield; }
+
+    .numberElmtInput:hover { background-color: var(--lighter-green); }
+
+    .decrementBtn,
+    .incrementBtn {
+        border: none;
+        background-color: var(--green);
+        color: var(--white);
+        font-family: ps-bold, Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .decrementBtn { border-radius: 0.8rem 0 0 0.8rem; }
+    .incrementBtn { border-radius: 0 0.8rem 0.8rem 0; }
+
+    .decrementBtn:hover,
+    .incrementBtn:hover {
+        background-color: var(--lighter-green);
+    }
+
+    @media only screen and (max-width: 380px) {
+        .cart-item { height: 3rem; }
+        .numberElmtInput { max-width: 1.2rem; }
     }
 </style>

@@ -52,8 +52,9 @@
             getTags() { return this.article.tags; },
             getElement() { return this.$el; },
 
-            quickAddToCart() {
-                this.$root.store.addItemToCart(this.article);
+            quickAddToCart(event) {
+                event.stopPropagation(); //stop click propragation to element behind quick cart add button
+                this.$root.store.addArticleToCart(this.article);
             },
 
             redirect() { this.$root.store.redirectToArticle(this.articleId); }
@@ -166,6 +167,8 @@
         cursor: pointer;
     }
 
+    .more-info:hover { background-color: var(--light-green); }
+
     .quick-cart {
         position: absolute;
         bottom: 0.7rem;
@@ -176,7 +179,11 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        z-index: 200;
     }
+
+    .quick-cart:hover { background-color: var(--light-green); }
+    .quick-cart:hover .plus-sign { color: var(--lighter-green); }
 
     .quick-cart img {
         max-width: 1.5rem;

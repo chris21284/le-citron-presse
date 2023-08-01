@@ -23,7 +23,7 @@
         <!-- V - rework footer home page -->
         <!-- present other pages (priority to single article page) -->
         <!-- then try to make cart page and make it all work -->
-        <!-- maybe add mobile version of cart as well -->
+        <!-- V - maybe add mobile version of cart as well -->
         <!-- convert local images to db images for future management (may be unecessary if using simple-git for pushing new images directly to git repo and new id to db, should work) -->
         <!-- V - add functions for event cards in db (crud, title, desc, event type + color) -->
         <!-- V1 should be working by now -->
