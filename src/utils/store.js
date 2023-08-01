@@ -50,6 +50,11 @@ export const useStore = defineStore({
       this.updateCart();
     },
 
+    clearCart() {
+      this.cart = {};
+      this.setLocalStorageItems();
+    },
+
     addArticleToCart(article, nbElement) {
       const id = article._id;
       let nbElmt = nbElement;
@@ -68,6 +73,11 @@ export const useStore = defineStore({
 
       if (!nbElmt)
         nbElmt = this.cart[id] ? this.cart[id]['nbElement'] + 1 : 1;
+
+      if (parseInt(nbElmt) <= 0) {
+        this.deleteItemFromCart(cartItem);
+        return;
+      }
 
       this.cart[id] = { id: id, name: cartItem.name, nbElement: parseInt(nbElmt), photo: cartItem.photo, price: cartItem.price };
       this.setLocalStorageItems();

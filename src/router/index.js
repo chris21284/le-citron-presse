@@ -5,6 +5,7 @@ import CpArticle from "@/views/CpArticle";
 import HomePage from "@/views/v2/Pages/HomePage";
 import AboutUsPage from "@/views/v2/Pages/AboutUsPage";
 import ContactPage from "@/views/v2/Pages/ContactPage";
+import DevisPage from "@/views/v2/Pages/DevisPage";
 
 import CpCart from "@/views/CpCart";
 
@@ -28,6 +29,7 @@ const routes = [
   { path: '/', component: HomePage },
   { path: '/a-propos-de-nous', component: AboutUsPage },
   { path: '/contact', component: ContactPage },
+  { path: '/devis', component: DevisPage },
   // { path: '/macarons', component: MacaronPage },
   // { path: '/patisserie', component: PatisseriePage },
   // { path: '/biscuits', component: BiscuitsPage },

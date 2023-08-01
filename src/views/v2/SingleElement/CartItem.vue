@@ -1,5 +1,5 @@
 <template>
-    <div class="cart-item">
+    <div class="cart-item" @click="redirect">
         <div class="leftInfo">
             <button class="deleteBtn" @click="deleteItem">🞪</button>
             <img class="previewImg" :src="getImgById(item.photo)" :alt="item.name"/>
@@ -7,7 +7,7 @@
         </div>
         <div class="quantity-btns">
             <button class="decrementBtn" @click="decrementItem">-</button>
-            <input id="numberElmtInput" class="numberElmtInput" @keyup.enter="updateNumberOfItem" type="number" :value="item.nbElement"/>
+            <input id="numberElmtInput" class="numberElmtInput" @click="stopEventPropagation" @keyup.enter="updateNumberOfItem" type="number" :value="item.nbElement"/>
             <button class="incrementBtn" @click="incrementItem">+</button>
         </div>
     </div>
@@ -23,11 +23,31 @@
             }
         },
         methods: {
-            updateNumberOfItem() { this.$root.store.addItemToCart(this.item, document.getElementById("numberElmtInput").value); },
-            incrementItem() { this.$root.store.addItemToCart(this.item); },
-            decrementItem() { this.$root.store.removeOneItemFromCart(this.item); },
-            deleteItem() { this.$root.store.deleteItemFromCart(this.item); },
-            getImgById(imgId) { return this.$root.store.getImgById(imgId); }
+            stopEventPropagation(event) {
+                event.stopPropagation();
+                event.stopImmediatePropagation();
+            },
+
+            updateNumberOfItem(event) { 
+                this.stopEventPropagation(event);
+                this.$root.store.addItemToCart(this.item, document.getElementById("numberElmtInput").value); 
+            },
+            incrementItem(event) { 
+                this.stopEventPropagation(event);
+                this.$root.store.addItemToCart(this.item); 
+            },
+            decrementItem(event) { 
+                this.stopEventPropagation(event);
+                this.$root.store.removeOneItemFromCart(this.item); 
+            },
+            deleteItem(event) { 
+                this.stopEventPropagation(event);
+                this.$root.store.deleteItemFromCart(this.item); 
+            },
+
+            getImgById(imgId) { return this.$root.store.getImgById(imgId); },
+
+            redirect() { this.$root.store.redirectToArticle(this.item['id']); }
         }
     }
 </script>
@@ -41,7 +61,10 @@
         height: 4rem;
         background-color: var(--light-green);
         border-radius: 1rem;
+        cursor: pointer;
     }
+
+    .cart-item:hover { background-color: var(--lighter-green); }
 
     .leftInfo {
         display: flex;

@@ -17,12 +17,6 @@
         </div>
 
         <div class="menu">
-            <!-- flex row -->
-            <!-- allergene if enough space -->
-            <div class="allergenes">
-                <!-- <p></p> allergene v-for all allergenes -->
-            </div>
-
             <button class="more-info" @click="redirect">Plus d'infos</button>
             
             <div class="quick-cart" @click="quickAddToCart">
@@ -54,6 +48,7 @@
 
             quickAddToCart(event) {
                 event.stopPropagation(); //stop click propragation to element behind quick cart add button
+                event.stopImmediatePropagation();
                 this.$root.store.addArticleToCart(this.article);
             },
 

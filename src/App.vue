@@ -21,13 +21,10 @@
   import { useStore } from "@/utils/store";
 
   export default {
-    components: { HeaderComponent, FooterComponent }, //{CpHeader, CpFooter},
+    components: { HeaderComponent, FooterComponent },
     data() {
       return {
-        // numberElementInCart: 0,
-        // showCaddy: false,
         isShrinked: false,
-        // containerElement: null,
 
         //maybe a variable for mobile device (a way to detect if user is on mobile? or width viewport too small)
         //for triggering a boolean isMobileDevice, and changing cart display method ?
@@ -45,63 +42,13 @@
       this.store.updateCart(); //init cart in store ( get localStorage or init to empty {} )
     },
     mounted() {
-      // this.checkLocalStorage();
-
       this.containerElement = document.querySelector('.container');
       this.containerElement.addEventListener('scroll', this.updateScroll);
     },
     methods: {
-      // getCurrentPath() {
-      //   return this.$route.path;
-      // },
-
       updateScroll() {
         this.isShrinked = this.containerElement.scrollTop > 80;
       },
-
-      // checkLocalStorage() {
-      //   let cart = localStorage.getItem(process.env.VUE_APP_CART);
-      //   if (cart == null) {
-      //     this.numberElementInCart = 0;
-      //   }
-      //   else {
-      //     cart = JSON.parse(cart);
-      //     this.numberElementInCart = Object.keys(cart).length;
-      //   }
-      // },
-      // onAddToCart(article, nbElement) {
-      //   const id = article._id;
-      //   const nbElem = nbElement || document.getElementById('nb-elem' + id).innerHTML;
-      //   let cart = localStorage.getItem(process.env.VUE_APP_CART);
-      //   if (cart == null) {
-      //     cart = {};
-      //   }
-      //   else {
-      //     cart = JSON.parse(cart);
-      //   }
-
-      //   cart[id] = { id: id, name: article.title, nbElement: parseInt(nbElem), photo: article.photos?.[0] };
-      //   localStorage.setItem(process.env.VUE_APP_CART, JSON.stringify(cart));
-      //   this.updateCartCount();
-      // },
-      // updateCartCount() {
-      //   this.checkLocalStorage();
-      // },
-      // onRemoveCart() {
-      //   localStorage.setItem(process.env.VUE_APP_CART, JSON.stringify({}))
-      //   this.checkLocalStorage();
-      // },
-      // onClick() {
-      //   this.showCaddy = false;
-      // },
-      // onOpenMobileCart(showCaddy) {
-      //   if (this.$router.currentRoute.value.path === '/cart') {
-      //     this.showCaddy = false; // on n'affiche pas le caddy en overlay si l'on est en mode mobile
-      //   }
-      //   else {
-      //     this.showCaddy = !showCaddy;
-      //   }
-      // }
     }
   }
 </script>

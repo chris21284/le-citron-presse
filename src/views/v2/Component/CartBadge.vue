@@ -5,13 +5,15 @@
             <div class="fullCart" v-if="this.isFullCartShown">
                 <!-- v-for cart item for each article in cart -->
                 <div class="fullCartContainer">
+                    <p v-if="getCartSize() <= 0" class="emptyCartText">Rien dans votre panier pour le moment !</p>
                     <CartItem v-for="item in cart"
                         :key="item.id"
                         :item="item"
                     />
                 </div>
                 <!-- button for devis page -->
-                <button class="devis-btn">DEVIS</button>
+                <button class="devis-btn" @click="redirectToDevisPage">DEVIS</button>
+                <button class="closeBtn">▲</button>
             </div>
         </Transition>
         
@@ -56,7 +58,11 @@
             },
 
             toggleFullCart() { this.isFullCartShown = !this.isFullCartShown; },
-            disableFullCart() { this.isFullCartShown = false; }
+            disableFullCart() { this.isFullCartShown = false; },
+
+            getCartSize() { return this.$root.store.getCartNumberOfItems(); },
+
+            redirectToDevisPage() { this.$router.push({ path: 'devis' }); }
         }
     }
 </script>
@@ -74,12 +80,12 @@
 
     .fullCart {
         display: flex;
+        position: relative;
         flex-direction: column;
         min-width: 25rem;
         min-height: 80dvh;
         max-height: 80dvh;
         width: 100%;
-        /* height: 100%; */
         background-color: var(--green);
         border-radius: 0 0 0 5rem;
         box-sizing: border-box;
@@ -165,6 +171,12 @@
         overflow: auto; /* test if scroll is behaving correctly with large amount of cart item */
     }
 
+    .emptyCartText {
+        font-family: ps-regular, Arial, Helvetica, sans-serif;
+        font-size: 1.2rem;
+        color: var(--white);
+    }
+
     .devis-btn {
         background-color: var(--light-green);
         color: var(--white);
@@ -174,7 +186,22 @@
         font-family: ps-bold, Arial, Helvetica, sans-serif;
         font-size: 1rem;
         max-width: 7rem;
+        cursor: pointer;
     }
+
+    .devis-btn:hover { background-color: var(--lighter-green); }
+
+    .closeBtn {
+        position: absolute;
+        bottom: 1rem;
+        right: 1rem;
+        border: none;
+        background-color: transparent;
+        color: var(--white);
+        font-size: 2rem;
+    }
+
+    .closeBtn:hover { color: var(--lighter-green); }
 
     @media only screen and (max-width: 530px) {
         .cart-container { left: 4.5rem; }
