@@ -1,5 +1,5 @@
 <template>
-    <div class="article-card">
+    <div class="article-card" @click="redirect">
 
         <img class="article-img" :src="getFirstImg(article)" :alt="article.title" loading="lazy"/>
 
@@ -7,9 +7,8 @@
             <div class="product-text">
                 <div class="top-info">
                     <h3>{{ article.title }}</h3>
-                    <div class="price">
-                        <!-- {{ article.price }} -->
-                        5,00 €
+                    <div class="price" v-if="article.price">
+                        {{ article.price }} €
                     </div>
                 </div>
                 
@@ -24,9 +23,9 @@
                 <!-- <p></p> allergene v-for all allergenes -->
             </div>
 
-            <button class="more-info">Plus d'infos</button>
+            <button class="more-info" @click="redirect">Plus d'infos</button>
             
-            <div class="quick-cart">
+            <div class="quick-cart" @click="quickAddToCart">
                 <img src="@/assets/v2/panier.png" alt="Panier" loading="lazy" />
                 <div class="plus-sign">+</div>
             </div>
@@ -51,7 +50,13 @@
             getTitle() { return this.article.title; },
             getDescription() { return this.article.description; },
             getTags() { return this.article.tags; },
-            getElement() { return this.$el; }
+            getElement() { return this.$el; },
+
+            quickAddToCart() {
+                this.$root.store.addItemToCart(this.article);
+            },
+
+            redirect() { this.$root.store.redirectToArticle(this.articleId); }
         }
     }
 </script>

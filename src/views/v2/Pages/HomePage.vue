@@ -21,11 +21,11 @@
         <!-- V - add all articles section + search bar filtering -->
         <!-- V - lazy load all images -->
         <!-- V - rework footer home page -->
-        <!-- present other pages -->
+        <!-- present other pages (priority to single article page) -->
         <!-- then try to make cart page and make it all work -->
         <!-- maybe add mobile version of cart as well -->
         <!-- convert local images to db images for future management (may be unecessary if using simple-git for pushing new images directly to git repo and new id to db, should work) -->
-        <!-- add functions for event cards in db (crud, title, desc, event type + color) -->
+        <!-- V - add functions for event cards in db (crud, title, desc, event type + color) -->
         <!-- V1 should be working by now -->
  
         <!-- next up, website for admin of db -->

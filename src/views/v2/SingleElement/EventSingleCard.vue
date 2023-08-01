@@ -1,10 +1,10 @@
 <template>
-    <div class="event-card">
+    <div class="event-card" @click="redirect">
         <!-- img from props, border color from props, name & description from props, maybe little badge icon for type of event card (concours / promo / etc) -->
         <img class="back-img" :src="getImgById(imgId)" :alt="imgId" loading="lazy" />
 
         <div class="title">
-            <h2>{{ eventType }}</h2>
+            <h2 class="borderText">{{ eventType }}</h2>
         </div>
 
         <div class="product-info">
@@ -19,30 +19,22 @@
         name: 'EventSingleCard',
         props: {
             // 'imgId': 'cookie1', 'borderColor':'red', 'name': 'cookie', 'description': 'biscuit'
-            id: {
-                type: String
-            },
-            name: {
-                type: String
-            },
-            description: {
-                type: String
-            },
-            imgId: {
-                type: String
-            },
-            borderColor: {
-                type: String
-            },
-            eventType: {
-                type: String //Object //object like, hold info like name of type (incontournable, tout nouveaux etc) ou date concours, ou valeur de promo -15% etc
-            }
+            id: { type: String },
+            name: { type: String },
+            description: { type: String },
+            imgId: { type: String },
+            textColor: { type: String },
+            borderColor: { type: String },
+            eventType: { type: String },
+            articleId: { type: String }
         },
         methods: {
             getImgById(id) {
                 let img = this.$root.store.getImgById(id);
                 return img;
-            }
+            },
+
+            redirect() { this.$root.store.redirectToArticle(this.articleId); }
         }
     }
 </script>
@@ -76,12 +68,16 @@
         position: absolute;
         top: 0;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translateX(-50%) translateY(-2%);
         padding: 0.4rem 1rem;
         border-radius: 0 0 20px 20px;
         font-size: 0.75rem;
         background-color: v-bind(borderColor);
-        color: var(--white);
+        /* color: var(--white); */
+    }
+
+    .borderText {
+        color: v-bind(textColor);
     }
 
     .event-card h2, .event-card h3 {

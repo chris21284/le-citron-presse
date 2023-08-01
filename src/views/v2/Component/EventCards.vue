@@ -9,8 +9,10 @@
                     :name="eventCard.name"
                     :description="eventCard.description"
                     :imgId="eventCard.imgId"
+                    :textColor="eventCard.textColor"
                     :borderColor="eventCard.borderColor"
                     :eventType="eventCard.eventType"
+                    :articleId="getArticleId(eventCard.articleId)"
                 />
             </div>
 
@@ -29,6 +31,7 @@
 </template>
 
 <script>
+    import { app, credentials } from "@/utils/mongo.client";
     import EventSingleCard from "@/views/v2/SingleElement/EventSingleCard.vue";
 
     export default {
@@ -53,20 +56,44 @@
             }
         },
         methods: {
-            testData() {
-                return JSON.parse('{ "data":[ { "_id": { "$oid": "1" }, "imgId": "cookie1", "borderColor":"red", "name": "cookie", "description": "biscuit choco", "eventType": "incontournable" }, { "_id": { "$oid": "2" }, "imgId": "cookie1", "borderColor":"red", "name": "cookie", "description": "biscuit choco", "eventType": "incontournable" }, { "_id": { "$oid": "3" }, "imgId": "cookie1", "borderColor":"red", "name": "cookie", "description": "biscuit choco", "eventType": "incontournable" }, { "_id": { "$oid": "4" }, "imgId": "cookie1", "borderColor":"red", "name": "cookie", "description": "biscuit choco", "eventType": "incontournable" } ]}');
+            getId(eventCard) { return this.$root.store.getId(eventCard); },
+            getArticleId(articleId) { return articleId ? articleId.toString() : null; },
+
+            async getAllEventCards() {
+                const user = await app.logIn(credentials);
+                const listOfEventCards = user.functions.getAllEventCards();
+                listOfEventCards.then((resp) => {
+                    this.eventCards = resp;
+                }).finally(() => { this.initSlideShow() });
             },
 
-            getId(eventCard) {
-                return eventCard._id.toString();
+            initSlideShow() {
+                this.slides = document.querySelectorAll(".slide");
+                this.pageBtns = document.querySelectorAll(".page-btn");
+                this.imgSelectorElement = document.createElement("img");
+                this.imgSelectorElement.src = require("@/assets/v2/lemon_icon.png");
+                this.imgSelectorElement.classList.add("imgSelectorIcon");
+
+                this.maxCardIndex = this.slides.length;
+                this.hasAutoplay = this.slides.length > 3;
+
+                if (this.slides.length === 0) return;
+
+                if (this.slides.length >= 3)
+                    this.goToSlide(1);
+                else
+                    this.goToSlide(0);
+
+                const prevSlide = document.querySelector(".btn-prev");
+                const nextSlide = document.querySelector(".btn-next");
+
+                prevSlide.addEventListener("click", () => this.onPrevBtnClicked);
+                nextSlide.addEventListener("click", () => this.onNextBtnClicked);
+
+                if (!this.hasAutoplay) return;
+                this.autoplay();
             },
 
-            getEventCardsData() {
-                // get event cards list from db
-                // test data for now
-                this.eventCards = JSON.parse(JSON.stringify(this.testData()))["data"];
-                //console.log(this.eventCards[0].name); //also work this.eventCards[0]["name"]
-            },
 
             updateSlidesPosition() {
                 this.slides.forEach((s, idx) => {
@@ -132,33 +159,7 @@
             }
         },
         mounted() {
-            this.slides = document.querySelectorAll(".slide");
-            this.pageBtns = document.querySelectorAll(".page-btn");
-            this.imgSelectorElement = document.createElement("img");
-            this.imgSelectorElement.src = require("@/assets/v2/lemon_icon.png");
-            this.imgSelectorElement.classList.add("imgSelectorIcon");
-
-            this.maxCardIndex = this.slides.length;
-            this.hasAutoplay = this.slides.length > 3;
-
-            if (this.slides.length === 0) return;
-
-            if (this.slides.length >= 3)
-                this.goToSlide(1);
-            else
-                this.goToSlide(0);
-
-            const prevSlide = document.querySelector(".btn-prev");
-            const nextSlide = document.querySelector(".btn-next");
-
-            prevSlide.addEventListener("click", () => this.onPrevBtnClicked);
-            nextSlide.addEventListener("click", () => this.onNextBtnClicked);
-
-            if (!this.hasAutoplay) return;
-            this.autoplay();
-        },
-        created() {
-            this.getEventCardsData();
+            this.getAllEventCards();
         }
     }
 </script>

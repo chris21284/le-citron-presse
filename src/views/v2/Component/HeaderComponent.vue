@@ -30,23 +30,18 @@
             </div>
         </div>
 
-        <div class="cart-container">
-            <div class="cart">
-                <img src="@/assets/v2/panier.png" alt="Panier"/>
-                <div class="number prevent-text-selection">{{ numberOfElements }}</div>
-            </div>
-        </div>        
+        <CartBadge />
+        
     </header>
 </template>
 
 <script>
+    import CartBadge from "@/views/v2/Component/CartBadge.vue"
+
     export default {
         name: 'HeaderComponent',
+        components: { CartBadge },
         props: {
-            numberOfElements: {
-                type: Number,
-                default: 0
-            },
             showMobileCart: {
                 type: Boolean,
                 default: true
@@ -54,10 +49,6 @@
             isShrinked: {
                 type: Boolean,
                 default: false
-            },
-            currentPath: {
-                type: String,
-                default: ''
             }
         },
         data() {
@@ -235,49 +226,6 @@
     .shrink-title {
         max-width: 9rem;
         left: 18rem;
-    }
-
-    .cart-container {
-        position: absolute;
-        right: 0%;
-        bottom: 0%;
-        transform: translateX(-53%) translateY(99%);
-
-        background-color: var(--green);
-        border-radius: 0 0 50% 50%;
-
-        min-height: 4.7rem;
-        display: flex;
-        flex-direction: column-reverse;
-    }
-
-    .cart img {
-        width: 25px;
-        padding: 1rem;
-    }
-
-    .cart .number {
-        position: absolute;
-        color: white;
-        top: 24%;
-        right: 17%;
-
-        background-color: var(--yellow);
-        border-radius: 50%;
-        padding: 0.12rem 0.4rem;
-        font-size: 0.9rem;
-    }
-
-    .cart {
-        margin: 0.4rem;
-        min-height: 3.7rem;
-        aspect-ratio: 1 / 1;
-    }
-
-    .cart:hover {
-        background-color: var(--light-green);
-        border-radius: 50%;
-        cursor: pointer;
     }
 
     /* ANIMATIONS */
