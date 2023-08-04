@@ -1,11 +1,16 @@
 <template>
-    <div class="cart-item" @click="redirect">
-        <div class="leftInfo">
+    <div class="devis-item" @click="redirect">
+        <div class="info">
             <button class="deleteBtn" @click="deleteItem">🞪</button>
             <img class="previewImg" :src="getImgById(item.photo)" :alt="item.name" loading="lazy"/>
-            <div class="info"> <p>{{ item.name }}</p> </div>
+            <div class="title"> <p>{{ item.name }}</p> </div>
         </div>
-        <div class="quantity-btns">
+
+        <div class="info">
+            <span class="totalItemPrice"> Prix Unitaire : {{ getItemPrice }} € </span>
+        </div>
+
+        <div class="info">
             <button class="decrementBtn" @click="decrementItem">-</button>
             <input id="numberElmtInput" class="numberElmtInput" @click="stopEventPropagation" @keyup.enter="updateNumberOfItem" type="number" :value="item.nbElement"/>
             <button class="incrementBtn" @click="incrementItem">+</button>
@@ -15,11 +20,17 @@
 
 <script>
     export default {
-        name: 'CartItem',
+        name: 'DevisItem',
         props: {
             item: {
                 type: Object,
                 default: null
+            }
+        },
+        computed: {
+            getItemPrice() { 
+                // return this.item.nbElement * this.item.price.$numberDecimal; 
+                return this.item.price.$numberDecimal;
             }
         },
         methods: {
@@ -53,29 +64,33 @@
 </script>
 
 <style scoped>
-    .cart-item {
+    .devis-item {
         display: flex;
+        flex-direction: row;
         padding: 0.3rem;
-        align-items: center;
         justify-content: space-between;
-        height: 4rem;
+        height: 5rem;
         background-color: var(--light-green);
         border-radius: 1rem;
         cursor: pointer;
-    }
-
-    .cart-item:hover { background-color: var(--lighter-green); }
-
-    .leftInfo {
-        display: flex;
-        height: 100%;
-        gap: 0.3rem;
         color: var(--white);
-        font-family: ps-regular, Arial, Helvetica, sans-serif;
-        font-size: 1.3rem;
+        gap: 1.3rem;
     }
+
+    .devis-item:hover { background-color: var(--lighter-green); }
 
     .info {
+        display: flex;
+        flex-direction: row;
+        gap: 0.3rem;
+        font-family: ps-regular, Arial, Helvetica, sans-serif;
+        font-size: 1.5rem;
+        min-height: 100%;
+    }
+
+    .info:nth-child(1) { flex-grow: 1; }
+
+    .title {
         flex-grow: 1;
         word-wrap: break-word;
         max-width: 10rem;
@@ -102,12 +117,6 @@
     }
 
     .deleteBtn:hover { background-color: var(--lighter-green); }
-
-    .quantity-btns {
-        min-height: 100%;
-        display: flex;
-        gap: 0.3rem;
-    }
 
     .numberElmtInput {
         font-family: ps-regular, Arial, Helvetica, sans-serif;
@@ -149,6 +158,10 @@
     .decrementBtn:hover,
     .incrementBtn:hover {
         background-color: var(--lighter-green);
+    }
+
+    .totalItemPrice {
+        font-size: 1.2rem;
     }
 
     @media only screen and (max-width: 380px) {

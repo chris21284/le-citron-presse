@@ -5,7 +5,7 @@
             <div class="fullCart" v-if="this.isFullCartShown">
                 <!-- v-for cart item for each article in cart -->
                 <div class="fullCartContainer">
-                    <p v-if="getCartSize() <= 0" class="emptyCartText">Rien dans votre panier pour le moment !</p>
+                    <p v-if="numberOfElements <= 0" class="emptyCartText">Rien dans votre panier pour le moment !</p>
                     <CartItem v-for="item in cart"
                         :key="item.id"
                         :item="item"
@@ -60,7 +60,7 @@
             toggleFullCart() { this.isFullCartShown = !this.isFullCartShown; },
             disableFullCart() { this.isFullCartShown = false; },
 
-            getCartSize() { return this.$root.store.getCartNumberOfItems(); },
+            // getCartSize() { return this.$root.store.getCartNumberOfItems(); },
 
             redirectToDevisPage() { this.$router.push({ path: 'devis' }); }
         }
@@ -199,6 +199,7 @@
         background-color: transparent;
         color: var(--white);
         font-size: 2rem;
+        cursor: pointer;
     }
 
     .closeBtn:hover { color: var(--lighter-green); }

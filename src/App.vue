@@ -136,6 +136,9 @@
   ::-webkit-scrollbar-track {
     background: var(--green);
     border-radius: 1rem;
+  }
+
+  .container::-webkit-scrollbar-track {
     margin: 3rem;
   }
 
