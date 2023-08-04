@@ -120,6 +120,8 @@
   }
 
   .main-content {
+    display: flex;
+    flex-grow: 1;
     padding-top: 5rem;
     padding-bottom: 5rem;
 

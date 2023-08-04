@@ -133,6 +133,7 @@
         margin: 3.5rem 1.2rem;
         margin-bottom: 0;
         gap: 5rem;
+        flex-grow: 1;
     }
 
     .side-info {

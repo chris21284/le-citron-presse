@@ -60,9 +60,7 @@
             toggleFullCart() { this.isFullCartShown = !this.isFullCartShown; },
             disableFullCart() { this.isFullCartShown = false; },
 
-            // getCartSize() { return this.$root.store.getCartNumberOfItems(); },
-
-            redirectToDevisPage() { this.$router.push({ path: 'devis' }); }
+            redirectToDevisPage() { this.$router.push({ path: '/devis' }); }
         }
     }
 </script>

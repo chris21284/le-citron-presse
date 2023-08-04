@@ -21,5 +21,6 @@
 <style scoped>
     .about-us-page {
         margin: 0 2rem;
+        flex-grow: 1;
     }
 </style>

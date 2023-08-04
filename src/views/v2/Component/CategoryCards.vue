@@ -10,8 +10,6 @@
         <div class="card"> 
             <router-link to="/biscuits"> <img src="@/assets/v2/biscuit_card.png" alt="Biscuits" loading="lazy"/> </router-link>
         </div>
-        <!-- background img? -->
-        <!-- don't know if scale on hover will move the entire div or not, if so then add img element as child -->
 
     </div>
 </template>

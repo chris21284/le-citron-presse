@@ -1,10 +1,5 @@
 <template>
     <div class="page404">
-        <!-- <div class="img-bg">
-            <div class="side-img"></div>
-            <img class="lemon-bed" src="@/assets/v2/lemon_bed_404.png" alt="Sleepy Lemon" />
-        </div> -->
-
         <div class="img-bg">
             <img class="lemon-bed" src="@/assets/v2/lemon_bed_404.png" alt="Sleepy Lemon" />
         </div>
@@ -26,6 +21,7 @@
 <style scoped>
     .page404 {
         display: flex;
+        flex-grow: 1;
         justify-content: center;
         align-items: center;
         gap: 5rem;

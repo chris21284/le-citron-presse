@@ -59,8 +59,8 @@ export const useStore = defineStore({
       const id = article._id;
       let nbElmt = nbElement;
 
-      if (!nbElmt)
-        nbElmt = this.cart[id] ? this.cart[id]['nbElement'] + 1 : 1;
+      if (this.cart[id])
+          nbElmt = nbElement ? this.cart[id]['nbElement'] + parseInt(nbElement) : this.cart[id]['nbElement'] + 1;
 
       this.cart[id] = { id: id, name: article.title, nbElement: parseInt(nbElmt), photo: article.photos?.[0], price: article.price };
       this.setLocalStorageItems();
@@ -115,7 +115,7 @@ export const useStore = defineStore({
 
     getId(obj) { return obj._id.toString(); },
 
-    redirectToArticle(articleId) { if(articleId) this.router.push({ path: "articles/" + articleId }); },
+    redirectToArticle(articleId) { if(articleId) this.router.push({ path: "/articles/" + articleId }); },
     //#endregion
   }
 });
