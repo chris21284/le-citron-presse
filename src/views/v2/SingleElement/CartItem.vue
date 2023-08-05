@@ -1,7 +1,7 @@
 <template>
     <div class="cart-item" @click="redirect">
         <div class="leftInfo">
-            <button class="deleteBtn" @click="deleteItem">🞪</button>
+            <button class="deleteBtn" @click="deleteItem"> <img src="@/assets/v2/close_icon.png" alt="Delete" /> </button>
             <img class="previewImg" :src="getImgById(item.photo)" :alt="item.name" loading="lazy"/>
             <div class="info"> <p>{{ item.name }}</p> </div>
         </div>
@@ -102,6 +102,8 @@
     }
 
     .deleteBtn:hover { background-color: var(--lighter-green); }
+
+    .deleteBtn img { height: 25%; }
 
     .quantity-btns {
         min-height: 100%;

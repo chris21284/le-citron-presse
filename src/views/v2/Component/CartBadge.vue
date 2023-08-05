@@ -13,16 +13,11 @@
                 </div>
                 <!-- button for devis page -->
                 <button class="devis-btn" @click="redirectToDevisPage">DEVIS</button>
-                <button class="closeBtn">▲</button>
+                <button class="closeBtn" @click="disableFullCart">▲</button>
             </div>
         </Transition>
         
-        <div v-outside-closable="{ exclude: ['cart-container', 
-        'fullCartContainer', 'devis-btn', 'imgContainer', 'number', 'cartImg', 
-        'number', 'fullCart', 'fullCartAnim', 'cart-item', 'deleteBtn', 'previewImg', 'info', 'decrementBtn',
-        'incrementBtn', 'numberElmtInput'], 
-        handler: 'disableFullCart' }" 
-        class="cart" @click="this.toggleFullCart">
+        <div class="cart" @click="this.toggleFullCart">
             <div class="imgContainer"> <img class="cartImg" src="@/assets/v2/panier.png" alt="Panier"/> </div>
             <div class="number" v-if="numberOfElements > 0">{{ numberOfElements }}</div>
         </div>

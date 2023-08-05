@@ -61,6 +61,8 @@ export const useStore = defineStore({
 
       if (this.cart[id])
           nbElmt = nbElement ? this.cart[id]['nbElement'] + parseInt(nbElement) : this.cart[id]['nbElement'] + 1;
+      else if (!nbElmt)
+          nbElmt = 1;
 
       this.cart[id] = { id: id, name: article.title, nbElement: parseInt(nbElmt), photo: article.photos?.[0], price: article.price };
       this.setLocalStorageItems();

@@ -43,7 +43,7 @@
                 <div class="cart-controls">
                     <div class="quantity-btns">
                         <button class="decrementBtn" @click="decrementItem">-</button>
-                        <input id="numberElmtInput" class="numberElmtInput" @keyup.enter="updateNumberOfItem" type="number" value="1"/>
+                        <input id="numberElmtInput" class="numberElmtInput" v-on:change="updateNumberOfItem" type="number" value="1"/>
                         <button class="incrementBtn" @click="incrementItem">+</button>
                     </div>
                     <button class="addToCartBtn" @click="addToCart">

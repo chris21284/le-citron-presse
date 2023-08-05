@@ -5,7 +5,7 @@
             <button class="search-btn" @click="search"> <span class="material-symbols-outlined">search</span> </button>
 
             <div class="search-txt">
-                <input class="search-input" v-on:keyup.enter="search" type="text" placeholder="Une envie particulière ?" name="search"/>
+                <input class="search-input" v-on:input="search" type="text" placeholder="Une envie particulière ?" name="search"/>
                 <button class="filter-btn"> <span class="material-symbols-outlined">filter_list</span> </button>
             </div>
         </div>

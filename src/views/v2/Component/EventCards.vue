@@ -16,8 +16,8 @@
                 />
             </div>
 
-            <button class="btn btn-prev" @click="onPrevBtnClicked">◀</button>
-            <button class="btn btn-next" @click="onNextBtnClicked">▶</button>
+            <button class="btn btn-prev" @click="onPrevBtnClicked"> <img src="@/assets/v2/arrow_left.png" alt="Left_Arrow"/> </button>
+            <button class="btn btn-next" @click="onNextBtnClicked"> <img src="@/assets/v2/arrow_right.png" alt="Right_Arrow"/> </button>
 
             <div class="pagination">
                 <div class="bar"></div>
@@ -75,7 +75,7 @@
                 this.imgSelectorElement.classList.add("imgSelectorIcon");
 
                 this.maxCardIndex = this.slides.length;
-                this.hasAutoplay = this.slides.length > 3;
+                this.hasAutoplay = this.slides.length > 3; //&& window.innerWidth <= 780; activate autoScroll on small screen width
 
                 if (this.slides.length === 0) return;
 
@@ -201,7 +201,7 @@
         color: var(--white);
         font-size: 30px;
         top: 50%;
-        padding-top: 5px;
+        padding-top: 10px;
     }
 
     .event-cards .slider .btn:hover {
@@ -214,16 +214,18 @@
         background-color: var(--white);
     }
 
+    .event-cards .slider .btn img { height: 80%; }
+
     .event-cards .slider .btn-prev {
         left: 0%;
         transform: translateX(-50%) translateY(-50%);
-        padding-right: 12px;
+        padding-right: 15px;
     }
 
     .event-cards .slider .btn-next {
         right: 0%;
         transform: translateX(50%) translateY(-50%);
-        padding-left: 12px;
+        padding-left: 15px;
     }
 
     .event-cards .slider .pagination {

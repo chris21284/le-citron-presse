@@ -25,7 +25,7 @@
             </div>
 
             <div class="contact-container">
-                <a :href="getMailHref" class="contact-btn">COMMANDER PAR MAIL</a>
+                <a :href="getMailHref" target="_blank" rel="noopener noreferrer" class="contact-btn">COMMANDER PAR MAIL</a>
             </div>
         </div>
     </div>

@@ -1,13 +1,12 @@
 <template>
     <div class="devis-item" @click="redirect">
         <div class="info">
-            <button class="deleteBtn" @click="deleteItem">🞪</button>
+            <button class="deleteBtn" @click="deleteItem"> <img src="@/assets/v2/close_icon.png" alt="Delete" /> </button>
             <img class="previewImg" :src="getImgById(item.photo)" :alt="item.name" loading="lazy"/>
-            <div class="title"> <p>{{ item.name }}</p> </div>
-        </div>
-
-        <div class="info">
-            <span class="totalItemPrice"> Prix Unitaire : {{ getItemPrice }} € </span>
+            <div class="text-info"> 
+                <p class="title">{{ item.name }}</p> 
+                <div class="price-info"> <span class="totalItemPrice"> Prix Unitaire : {{ getItemPrice }} € </span> </div>
+            </div>
         </div>
 
         <div class="info">
@@ -90,12 +89,24 @@
 
     .info:nth-child(1) { flex-grow: 1; }
 
-    .title {
+    .text-info {
         flex-grow: 1;
         word-wrap: break-word;
-        max-width: 10rem;
+        /* max-width: 10rem; */
         text-overflow: ellipsis;
+        display: flex;
+        flex-direction: column;
     }
+
+    .price-info {
+        display: flex;
+        justify-content: flex-end;
+        flex-grow: 1;
+        max-height: 1.5rem;
+        align-items: flex-end;
+    }
+
+    .title { flex-grow: 1; }
 
     .previewImg {
         max-height: 100%;
@@ -117,6 +128,8 @@
     }
 
     .deleteBtn:hover { background-color: var(--lighter-green); }
+
+    .deleteBtn img { height: 25%; }
 
     .numberElmtInput {
         font-family: ps-regular, Arial, Helvetica, sans-serif;
