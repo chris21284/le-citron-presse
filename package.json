@@ -11,7 +11,7 @@
     "core-js": "^3.8.3",
     "pinia": "^2.1.4",
     "realm-web": "^2.0.0",
-    "vue": "^3.2.13",
+    "vue": "3.3.4",
     "vue-router": "^4.1.5"
   },
   "devDependencies": {
