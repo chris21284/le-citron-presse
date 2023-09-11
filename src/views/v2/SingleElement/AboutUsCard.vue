@@ -5,7 +5,7 @@
         <div class="side-info">
 
             <div class="info">
-                <h2>Gourmandises 100% bio faits avec amour</h2>
+                <h2>Gourmandises bio 100% faites avec amour</h2>
                 <p>Découvrez une gamme diversifiée de produits tels que les cupcakes, biscuits, macarons, number cakes, cookies et bien plus encore ! Vous prévoyez de commander pour un événement spécial ? Il vous suffit de préciser vos demandes spécifiques pour personnaliser votre commande.</p>
             </div>
             

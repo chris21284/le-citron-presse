@@ -24,6 +24,8 @@
                 <div class="price-estimate"> Total Estimé : {{ getTotalPrice }} €</div>
             </div>
 
+            <p>Pour le moment les commandes en lignes seront probablement à récupérer sur le marché d'Aubagne pour certains produits dont la livraison est pour le moment compliqué.</p>
+
             <div class="contact-container">
                 <a :href="getMailHref" target="_blank" rel="noopener noreferrer" class="contact-btn">COMMANDER PAR MAIL</a>
             </div>
@@ -68,7 +70,7 @@
                     priceSum += (item.nbElement * item.price.$numberDecimal);
                 }
 
-                return priceSum;
+                return priceSum.toString();
             },
 
             getDevisMail() {

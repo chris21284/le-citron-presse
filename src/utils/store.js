@@ -8,7 +8,9 @@ export const useStore = defineStore({
     articles: [],
     images: [],
     cart: {},
-    updateCartEvent: null
+    updateCartEvent: null,
+    lastTimeChangedValue: null,
+    localLastTimeChangedValue: null
   }),
   actions: {
 
@@ -118,6 +120,52 @@ export const useStore = defineStore({
     getId(obj) { return obj._id.toString(); },
 
     redirectToArticle(articleId) { if(articleId) this.router.push({ path: "/articles/" + articleId }); },
+    //#endregion
+
+    //#region CACHE SYSTEM
+    async getLastTimeChanged() {
+      const user = await app.logIn(credentials);
+      const request = user.functions.getLastTimeChanged();
+      request.then((resp) => {
+        this.lastTimeChangedValue = resp;
+      });
+    },
+
+    saveToCache() {
+      if (!this.localLastTimeChangedValue) {
+        this.localLastTimeChangedValue = Date.now();
+      }
+
+      let data = {};
+      data['articles'] = this.articles;
+
+      localStorage.setItem(process.env.VUE_APP_LAST_DATA_CHANGES, this.localLastTimeChangedValue);
+      localStorage.setItem(process.env.VUE_APP_CACHE_DATA, JSON.stringify(data));
+    },
+
+    loadFromCache() {
+
+      this.localLastTimeChangedValue = localStorage.getItem(process.env.VUE_APP_LAST_DATA_CHANGES);
+      let localData = localStorage.getItem(process.env.VUE_APP_CACHE_DATA);
+      let data = localData ? JSON.parse(localData) : null;
+
+      if (!data) {
+        //load manually
+        // this.initGetAllArticles();
+        return;
+      }
+
+      this.articles = data['articles'];
+    },
+
+    checkLastTimeDbChanged() {
+      let lastChanges = localStorage.getItem(process.env.VUE_APP_LAST_DATA_CHANGES);
+      this.localLastTimeChangedValue = lastChanges ? JSON.parse(lastChanges) : null;
+
+      if (!this.localLastTimeChangedValue || !this.lastTimeChangedValue) return false;
+
+      return this.localLastTimeChangedValue.getTime() < this.lastTimeChangedValue.getTime();
+    }
     //#endregion
   }
 });
