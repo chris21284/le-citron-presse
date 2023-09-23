@@ -3,6 +3,7 @@
     <div class="event-cards" v-if="eventCards.length > 0">
         <div class="slider">
 
+            <!-- todo : infinite carousel ? -->
             <div class="slide" v-for="eventCard in eventCards" :key="getId(eventCard)">
                 <EventSingleCard 
                     :id="getId(eventCard)"
@@ -33,6 +34,7 @@
 <script>
     import { app, credentials } from "@/utils/mongo.client";
     import EventSingleCard from "@/views/v2/SingleElement/EventSingleCard.vue";
+    import { useStore } from "@/utils/store";
 
     export default {
         name: 'EventCards',
@@ -52,7 +54,8 @@
                 slowAutoPlayInterval: 15000,
                 autoplaySlidesInterval: 5000,
                 hasAutoplay: false,
-                interval: null
+                interval: null,
+                store: null
             }
         },
         methods: {
@@ -64,7 +67,11 @@
                 const listOfEventCards = user.functions.getAllEventCards();
                 listOfEventCards.then((resp) => {
                     this.eventCards = resp;
-                }).finally(() => { this.initSlideShow() });
+                }).then(() => {
+                    this.store.saveEventCards(this.eventCards);
+                    this.store.saveToCache();
+                })
+                .finally(() => { this.initSlideShow() });
             },
 
             initSlideShow() {
@@ -159,7 +166,22 @@
             }
         },
         mounted() {
-            this.getAllEventCards();
+            
+            if (this.store.savedEventCards != null && this.store.savedEventCards.length > 0) {
+                console.log("event cards loading from cache");
+                this.initSlideShow();
+            }
+            else {
+                console.log("event cards db call");
+                this.getAllEventCards();
+            }
+        },
+        beforeMount() {
+            this.store = useStore();
+
+            //this needs to be in beforeMount otherwise slideshow won't work properly as the html divs aren't instantiated after its mounted
+            if (this.store.savedEventCards != null && this.store.savedEventCards.length > 0)
+                this.eventCards = this.store.savedEventCards;
         }
     }
 </script>

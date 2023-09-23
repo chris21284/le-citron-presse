@@ -31,16 +31,31 @@
         </div>
 
         <CartBadge />
+
+        <HalftoneLayer
+            color="var(--yellow)"
+            size="9rem"
+            repeat="repeat-x"
+            borderRadius="0 0 35px 0"
+            width="100%"
+            :height="halftoneSize"
+            transform="translateY(4rem)"
+            top="unset"
+            right="0"
+            :bottom="halftoneBaseSize + 'rem'"
+            left="0"
+        />
         
     </header>
 </template>
 
 <script>
     import CartBadge from "@/views/v2/Component/CartBadge.vue"
+    import HalftoneLayer from "@/views/v2/SingleElement/HalftoneLayer.vue";
 
     export default {
         name: 'HeaderComponent',
-        components: { CartBadge },
+        components: { CartBadge , HalftoneLayer },
         props: {
             showMobileCart: {
                 type: Boolean,
@@ -59,7 +74,15 @@
                 biscuitPath: "/biscuits",
                 aProposPath: "/a-propos-de-nous",
                 contactPath: "/contact",
-                isHamburgerNavActive: false
+                isHamburgerNavActive: false,
+
+                halftoneBaseSize: 4
+            }
+        },
+        computed: {
+            halftoneSize() {
+                var res = this.isShrinked ? (this.halftoneBaseSize / 1.6).toString() : this.halftoneBaseSize.toString();
+                return res + "rem";
             }
         },
         methods: {
@@ -86,6 +109,7 @@
     }
 
     nav {
+        z-index: 95;
         display: flex;
         min-height: 5rem;
         flex-wrap: nowrap;
@@ -129,6 +153,7 @@
         justify-content: flex-end;
         align-items: center;
         margin-right: 3rem;
+        z-index: 95;
     }
 
     .hamburger_icon {
@@ -221,6 +246,7 @@
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
         transition: all 250ms cubic-bezier(0.33, 1, 0.6, 1);
+        z-index: 95;
     }
 
     .shrink-title {

@@ -1,5 +1,6 @@
-<template>  
-  <HeaderComponent :isShrinked="isShrinked"/>
+<template>
+  <LoadingSpinner v-if="isLoadingSpinnerShown"/>
+  <HeaderComponent :key="renderKey" :isShrinked="isShrinked"/>
   
   <div class="bg expand">
     <div class="bg_color expand"></div>
@@ -7,24 +8,27 @@
 
   <div class="container" :class="[isShrinked ? 'container-shrink':'']">
     <div class="main-content">
-      <router-view/>
+      <router-view :key="renderKey"/>
     </div>
 
-    <FooterComponent />
+    <FooterComponent :key="renderKey"/>
   </div>
   
 </template>
 
 <script>
-  import HeaderComponent from "@/views/v2/Component/HeaderComponent"
+  import HeaderComponent from "@/views/v2/Component/HeaderComponent.vue";
   import FooterComponent from "@/views/v2/Component/FooterComponent.vue";
+  import LoadingSpinner from "@/views/v2/SingleElement/LoadingSpinner.vue";
   import { useStore } from "@/utils/store";
 
   export default {
-    components: { HeaderComponent, FooterComponent },
+    components: { HeaderComponent, FooterComponent, LoadingSpinner },
     data() {
       return {
         isShrinked: false,
+        renderKey: 0,
+        isLoadingSpinnerShown: false,
 
         //maybe a variable for mobile device (a way to detect if user is on mobile? or width viewport too small)
         //for triggering a boolean isMobileDevice, and changing cart display method ?
@@ -36,8 +40,12 @@
       this.store = useStore();
 
       this.store.initRouter(this.$router);
-      this.store.fetchAllImages(); //stores all images on startup
-      this.store.initGetAllArticles();
+      this.store.initApp(this);
+      this.store.fetchAllImages(); //stores all images on startup (cache not needed)
+
+      this.store.checkLastTimeDbChanged(); //if changes has been made to db, will remake db calls and reload components 
+      this.store.loadFromCache(); //load from cache by default if data saved to local storage, otherwise loading manually (db calls)
+
       this.store.initUpdateEvent();
       this.store.updateCart(); //init cart in store ( get localStorage or init to empty {} )
     },
@@ -49,6 +57,14 @@
       updateScroll() {
         this.isShrinked = this.containerElement.scrollTop > 80;
       },
+
+      rerender() {
+        console.log("RERENDER !");
+        this.renderKey += 1;
+      },
+
+      showLoadingSpinner() { this.isLoadingSpinnerShown = true; },
+      hideLoadingSpinner() { this.isLoadingSpinnerShown = false; }
     }
   }
 </script>

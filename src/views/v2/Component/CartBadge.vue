@@ -1,6 +1,20 @@
 <template>
     <div class="cart-container" :key="componentKey">
 
+        <HalftoneLayer
+            color="var(--light-green)"
+            size="9rem"
+            repeat="repeat-x"
+            borderRadius="0"
+            width="100%"
+            height="1.5rem"
+            transform="scaleY(-1)"
+            top="0"
+            right="0"
+            bottom="unset"
+            left="0"
+        />
+
         <Transition name="fullCartAnim">
             <div class="fullCart" v-if="this.isFullCartShown">
                 <!-- v-for cart item for each article in cart -->
@@ -25,11 +39,12 @@
 </template>
 
 <script>
-    import CartItem from '../SingleElement/CartItem.vue';
+    import CartItem from '@/views/v2/SingleElement/CartItem.vue';
+    import HalftoneLayer from '@/views/v2/SingleElement/HalftoneLayer.vue';
 
     export default {
         name: 'CartBadge',
-        components: { CartItem },
+        components: { CartItem, HalftoneLayer },
         data() {
             return {
                 cart: {},
@@ -69,6 +84,7 @@
         display: flex;
         flex-direction: column;
         align-items: flex-end;
+        z-index: 95;
     }
 
     .fullCart {

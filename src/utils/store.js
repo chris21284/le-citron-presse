@@ -5,9 +5,11 @@ export const useStore = defineStore({
   id: "app",
   state: () => ({
     router: null,
+    app: null,
     articles: [],
     images: [],
     cart: {},
+    savedEventCards: [],
     updateCartEvent: null,
     lastTimeChangedValue: null,
     localLastTimeChangedValue: null
@@ -15,6 +17,7 @@ export const useStore = defineStore({
   actions: {
 
     initRouter(router) { this.router = router; },
+    initApp(app) { this.app = app; },
 
     //#region IMAGES STORE
     async fetchAllImages() {
@@ -34,6 +37,7 @@ export const useStore = defineStore({
 
     //#region CART STORE
     initUpdateEvent() {
+      if (this.updateCartEvent != null) return;
       this.updateCartEvent = new CustomEvent(process.env.VUE_APP_CART_UPDATE);
     },
 
@@ -125,46 +129,65 @@ export const useStore = defineStore({
     //#region CACHE SYSTEM
     async getLastTimeChanged() {
       const user = await app.logIn(credentials);
-      const request = user.functions.getLastTimeChanged();
-      request.then((resp) => {
-        this.lastTimeChangedValue = resp;
-      });
+      const response = await user.functions.getLastTimeChanged();
+      return response;
     },
 
+    saveEventCards(eventCards) { this.savedEventCards = eventCards; },
+
     saveToCache() {
-      if (!this.localLastTimeChangedValue) {
-        this.localLastTimeChangedValue = Date.now();
-      }
+      this.localLastTimeChangedValue = Date.now();
 
       let data = {};
       data['articles'] = this.articles;
+      data['eventCards'] = this.savedEventCards;
 
       localStorage.setItem(process.env.VUE_APP_LAST_DATA_CHANGES, this.localLastTimeChangedValue);
       localStorage.setItem(process.env.VUE_APP_CACHE_DATA, JSON.stringify(data));
     },
 
-    loadFromCache() {
-
+    loadFromCache(forceManualLoading = false) {
       this.localLastTimeChangedValue = localStorage.getItem(process.env.VUE_APP_LAST_DATA_CHANGES);
       let localData = localStorage.getItem(process.env.VUE_APP_CACHE_DATA);
       let data = localData ? JSON.parse(localData) : null;
+      console.log("data ? => " + data);
 
-      if (!data) {
-        //load manually
-        // this.initGetAllArticles();
+      //last time db is true whenever the local data last changes time is older than db most recent changes 
+      if (!data || forceManualLoading) {
+        //load manually and save
+        console.log("loading manually");
+        this.savedEventCards = null;
+        this.initGetAllArticles().then(() => this.saveToCache());
         return;
       }
 
       this.articles = data['articles'];
+      this.savedEventCards = data['eventCards'];
     },
 
     checkLastTimeDbChanged() {
       let lastChanges = localStorage.getItem(process.env.VUE_APP_LAST_DATA_CHANGES);
       this.localLastTimeChangedValue = lastChanges ? JSON.parse(lastChanges) : null;
 
-      if (!this.localLastTimeChangedValue || !this.lastTimeChangedValue) return false;
+      this.app.showLoadingSpinner();
 
-      return this.localLastTimeChangedValue.getTime() < this.lastTimeChangedValue.getTime();
+      const lastTimeDb = this.getLastTimeChanged();
+      lastTimeDb.then((response) => {
+        this.lastTimeChangedValue = Date.parse(response["lastTimeChanged"]);
+
+        if (!this.localLastTimeChangedValue || !this.lastTimeChangedValue) return false;
+
+        var hasChanged = this.localLastTimeChangedValue < this.lastTimeChangedValue;
+        console.log("checking Last Time DB changed : " + hasChanged);
+
+        if (hasChanged) {
+          this.loadFromCache(true);
+          this.app.rerender();
+        }
+        
+        this.app.hideLoadingSpinner();
+        return hasChanged;       
+      }).catch(() => { return false; });
     }
     //#endregion
   }
