@@ -63,6 +63,9 @@
         this.renderKey += 1;
       },
 
+      forceShrinking() { this.isShrinked = true; },
+      resetShrinking() { this.isShrinked = false; },
+
       showLoadingSpinner() { this.isLoadingSpinnerShown = true; },
       hideLoadingSpinner() { this.isLoadingSpinnerShown = false; }
     }

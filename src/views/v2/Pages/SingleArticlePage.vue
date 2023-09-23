@@ -33,7 +33,7 @@
                 </div>
 
                 <div class="bottom-info">
-                    <div class="price-info" v-if="this.article.price">{{ this.article.price }} €</div>
+                    <div class="price-info" v-if="this.article.price">{{ getFormattedPrice(this.article.price) }} €</div>
                     <div class="portion-info">Portion de 100g</div>
                 </div>                
             </div>
@@ -87,7 +87,7 @@
             getCurrentPhoto() { return this.$root.store.getImgById(this.article.photos[this.currentPhotoIndex]); },
             getImgById(imgId) { return this.$root.store.getImgById(imgId); },
 
-            redirect() { this.$router.push("/not-found"); },
+            redirect(path) { this.$router.push(path); },
 
             setCurrentPhotoSelected(idx) { this.currentPhotoIndex = idx; },
 
@@ -104,14 +104,21 @@
                 this.$root.store.addArticleToCart(this.article, this.numberElmtInput.value);
 
                 this.numberElmtInput.value = 1;
+            },
+
+            getFormattedPrice(price) {
+                if (price["$numberDecimal"]) return price["$numberDecimal"];
+                return price;
             }
         },
         created() {
             const route = useRoute();
             const articleId = route != null && route.params != null ? route.params.articleId : undefined;
             
+            this.$root.forceShrinking();
+            
             if (articleId) this.getArticle(articleId);
-            else this.redirect();
+            else this.redirect("/not-found");
         },
         mounted() {
             this.numberElmtInput = document.getElementById("numberElmtInput");
@@ -128,6 +135,10 @@
         /* min-height: 60dvh; */
         flex-grow: 1;
         gap: 5rem;
+        width: 100%;
+        box-sizing: border-box;
+        padding-left: 1rem;
+        padding-right: 1rem;
 
         font-family: ps-regular, Arial, Helvetica, sans-serif;
     }
@@ -135,6 +146,7 @@
     .images {
         display: flex;
         flex-direction: column;
+        margin: 0 1rem;
     }
 
     .main-preview {
@@ -164,6 +176,7 @@
         object-fit: cover;
         max-height: 25rem;
         border-radius: 0.3rem;
+        width: 100%;
     }
 
     .carousel {
@@ -193,6 +206,8 @@
     .info-container {
         display: flex;
         flex-direction: column;
+        width: 100%;
+        max-width: 40rem;
     }
 
     .bottom-info {
@@ -360,8 +375,17 @@
     }
 
     @media only screen and (max-width: 550px) {
-        .more-info { flex-direction: column; }
-        .cart-controls { border-radius: 0 0 1rem 0; }
-        .allergenes { transform: translateY(-1%); }
+        .more-info { flex-direction: column; padding: 0 1rem; }
+        .cart-controls { justify-content: center; }
+        .allergenes { transform: translateY(-1%) translateX(1rem); }
+    }
+
+    @media only screen and (max-width: 500px) {
+        .carousel-photo { max-height: 5rem; }
+    }
+
+    @media only screen and (max-width: 450px) {
+        .addToCartBtn { font-size: 0.75rem; }
+        .cart-controls { gap: 1rem; }
     }
 </style>

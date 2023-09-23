@@ -309,7 +309,7 @@
         transform: translateX(-50%) translateY(-50%);
         z-index: 50;
 
-        height: 4vh;
+        height: 2.5rem;
     }
 
     @media only screen and (max-width: 500px) {
@@ -340,7 +340,10 @@
         }
 
         .event-cards .slider .pagination .nav { gap: 1rem; }
-        .event-cards .slider .pagination .nav .page-btn .imgSelectorIcon { height: 2vh; }
-    }
-    
+        .event-cards .slider .pagination .nav .page-btn .imgSelectorIcon { height: 1.5rem; }
+
+        .event-cards .slider .btn img { height: 50%; }
+        .event-cards .slider .btn-prev img { transform: translateX(25%) translateY(10%); }
+        .event-cards .slider .btn-next img { transform: translateX(-25%) translateY(10%); }
+    }    
 </style>

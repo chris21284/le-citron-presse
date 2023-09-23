@@ -1,19 +1,7 @@
 <template>
     <div class="cart-container" :key="componentKey">
 
-        <HalftoneLayer
-            color="var(--light-green)"
-            size="9rem"
-            repeat="repeat-x"
-            borderRadius="0"
-            width="100%"
-            height="1.5rem"
-            transform="scaleY(-1)"
-            top="0"
-            right="0"
-            bottom="unset"
-            left="0"
-        />
+        <HalftoneLayer color="var(--light-green)" size="9rem" repeat="repeat-x" borderRadius="0" width="100%" height="1.5rem" transform="scaleY(-1)" top="0" right="0" bottom="unset" left="0" v-if="isFullCartShown"/>
 
         <Transition name="fullCartAnim">
             <div class="fullCart" v-if="this.isFullCartShown">
@@ -32,6 +20,9 @@
         </Transition>
         
         <div class="cart" @click="this.toggleFullCart">
+
+            <HalftoneLayer color="var(--light-green)" size="9rem" repeat="repeat-x" borderRadius="0" width="100%" height="1.5rem" transform="scaleY(-1)" top="0" right="0" bottom="unset" left="0" v-if="!isFullCartShown"/>
+
             <div class="imgContainer"> <img class="cartImg" src="@/assets/v2/panier.png" alt="Panier"/> </div>
             <div class="number" v-if="numberOfElements > 0">{{ numberOfElements }}</div>
         </div>

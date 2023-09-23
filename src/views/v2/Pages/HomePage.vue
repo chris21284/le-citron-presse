@@ -26,7 +26,7 @@
         <!-- V - maybe add mobile version of cart as well -->
         <!-- X - convert local images to db images for future management (may be unecessary if using simple-git for pushing new images directly to git repo and new id to db, should work) -->
         <!-- V - add functions for event cards in db (crud, title, desc, event type + color) -->
-        <!-- add local Storage caching for pinia states - prevent user from requesting from db every refresh, add data validity duration -->
+        <!-- V- add local Storage caching for pinia states - prevent user from requesting from db every refresh, add data validity duration -->
         <!-- V1 should be working by now -->
  
         <!-- next up, website for admin of db -->
@@ -47,7 +47,10 @@
 
     export default {
         name:'HomePage',
-        components: { AboutUsCard, EventCards, SeparatorBar, CategoryCards, AllArticles }
+        components: { AboutUsCard, EventCards, SeparatorBar, CategoryCards, AllArticles },
+        created() {
+            this.$root.resetShrinking();
+        }
     }
 </script>
 
