@@ -1,12 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
-import HomePage from "@/views/v2/Pages/HomePage";
-import AboutUsPage from "@/views/v2/Pages/AboutUsPage";
-import ContactPage from "@/views/v2/Pages/ContactPage";
-import DevisPage from "@/views/v2/Pages/DevisPage";
-import SingleArticlePage from "@/views/v2/Pages/SingleArticlePage";
+import HomePage from "@/views/Pages/HomePage";
+import AboutUsPage from "@/views/Pages/AboutUsPage";
+import ContactPage from "@/views/Pages/ContactPage";
+import DevisPage from "@/views/Pages/DevisPage";
+import SingleArticlePage from "@/views/Pages/SingleArticlePage";
 
-import NotFoundPage from "@/views/v2/Pages/NotFoundPage";
+import NotFoundPage from "@/views/Pages/NotFoundPage";
 
 const routes = [
   { path: '/', component: HomePage },

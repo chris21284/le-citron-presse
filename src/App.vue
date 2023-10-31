@@ -17,9 +17,9 @@
 </template>
 
 <script>
-  import HeaderComponent from "@/views/v2/Component/HeaderComponent.vue";
-  import FooterComponent from "@/views/v2/Component/FooterComponent.vue";
-  import LoadingSpinner from "@/views/v2/SingleElement/LoadingSpinner.vue";
+  import HeaderComponent from "@/views/Component/HeaderComponent.vue";
+  import FooterComponent from "@/views/Component/FooterComponent.vue";
+  import LoadingSpinner from "@/views/SingleElement/LoadingSpinner.vue";
   import { useStore } from "@/utils/store";
 
   export default {
@@ -144,7 +144,7 @@
     padding-top: 5rem;
     padding-bottom: 5rem;
 
-    background-image: url("./assets/v2/background_repeating_3.png");
+    background-image: url("./assets/icons/background_repeating_3.png");
     background-size: 20rem;
     background-color: var(--yellow);
   }

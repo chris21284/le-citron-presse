@@ -21,8 +21,7 @@ export const useStore = defineStore({
 
     //#region IMAGES STORE
     async fetchAllImages() {
-      //replace with import all images from db, maybe not finally see HomePage.vue todo list
-      const r = require.context('../assets/v2/images/', false, /\.webp$/);
+      const r = require.context('../assets/images/', false, /\.webp$/);
       const prefix = (process.env.NODE_ENV === 'production') ? '/' : '';
       this.images = r.keys().reduce((json, value) => { json[value] = prefix + r(value); return json; }, {});
     },
@@ -112,6 +111,7 @@ export const useStore = defineStore({
 
     //#region ARTICLES STORE
     async initGetAllArticles() {
+      console.log("CALL DB ARTICLES");
       const user = await app.logIn(credentials);
       const listOfArticles = user.functions.getAllArticles();
       listOfArticles.then((resp) => {
@@ -177,7 +177,7 @@ export const useStore = defineStore({
 
         if (!this.localLastTimeChangedValue || !this.lastTimeChangedValue) return false;
 
-        var hasChanged = this.localLastTimeChangedValue < this.lastTimeChangedValue;
+        let hasChanged = this.localLastTimeChangedValue < this.lastTimeChangedValue;
         console.log("checking Last Time DB changed : " + hasChanged);
 
         if (hasChanged) {
