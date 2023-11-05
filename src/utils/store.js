@@ -117,7 +117,7 @@ export const useStore = defineStore({
       const listOfArticles = user.functions.getAllArticles();
       listOfArticles.then((resp) => {
         this.articles = resp;
-      });
+      }).finally(this.saveToCache());
     },
 
     getArticleById(articleId) { return this.articles.find(article => this.getId(article) === articleId.toString() ); },
@@ -155,7 +155,7 @@ export const useStore = defineStore({
       console.log("data ? => " + data);
 
       //last time db is true whenever the local data last changes time is older than db most recent changes 
-      if (!data || !data['articles'] || forceManualLoading) {
+      if (!data || data['articles'].length == 0 || forceManualLoading) {
         //load manually and save
         console.log("loading manually");
         this.savedEventCards = null;
