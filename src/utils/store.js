@@ -140,6 +140,7 @@ export const useStore = defineStore({
       this.localLastTimeChangedValue = Date.now();
 
       let data = {};
+      console.log("SAVING to cache articles :" + this.articles);
       data['articles'] = this.articles;
       data['eventCards'] = this.savedEventCards;
 
@@ -154,7 +155,7 @@ export const useStore = defineStore({
       console.log("data ? => " + data);
 
       //last time db is true whenever the local data last changes time is older than db most recent changes 
-      if (!data || forceManualLoading) {
+      if (!data || !data['articles'] || forceManualLoading) {
         //load manually and save
         console.log("loading manually");
         this.savedEventCards = null;
@@ -162,6 +163,7 @@ export const useStore = defineStore({
         return;
       }
 
+      console.log("articles loaded : " + data['articles']);
       this.articles = data['articles'];
       this.savedEventCards = data['eventCards'];
     },
